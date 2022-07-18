@@ -8,7 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body >
+<body>
 
 <div class="navbar  bg-sun-50 h-16 rounded-full m-2 w-auto">
   <div class="flex-1">
