@@ -10,10 +10,16 @@
 </head>
 <body>
 
-<div class="navbar  bg-sun-50 h-16 rounded-full m-2 w-auto">
+<div class="navbar bg-sun-50 h-16 rounded-full m-2 top-2 fixed w-full z-50">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+    <a class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
+
+    <div class="form-control">
+      <form action="" method="post">
+      <input type="text" placeholder="Search" name="search" class="input input-bordered" />
+      </form>    
+    </div>
   <div class="flex-none">
     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -55,10 +61,17 @@
 </html>
 <?php 
 include("connect.php");
+
+if (isset($_POST["search"]))
+{
+  $srch=$_POST["search"];
+$sql="SELECT * FROM products where pname like '%$srch%'";
+}
+else
 $sql="SELECT * FROM products";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
-echo "<div class='bg-sun-300 flex flex-wrap justify-center flex-row'>";
+echo "<div class='bg-sun-300 flex flex-wrap m-24 justify-center flex-row'>";
 foreach($result as $row){
     $img=$row["image"];
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";

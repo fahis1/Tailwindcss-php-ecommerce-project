@@ -32,6 +32,17 @@
 4. Use the user's configured `sans` font-family by default.
 */
 
+  /* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
 html {
   line-height: 1.5;
   /* 1 */
@@ -2849,6 +2860,11 @@ body[dir="rtl"] .checkbox:checked,
   position: relative;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
 .right-4 {
   right: 1rem;
 }
@@ -2881,12 +2897,24 @@ body[dir="rtl"] .checkbox:checked,
   left: 0px;
 }
 
+.top-2 {
+  top: 0.5rem;
+}
+
 .z-10 {
   z-index: 10;
 }
 
 .-z-10 {
   z-index: -10;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.z-0 {
+  z-index: 0;
 }
 
 .col-span-3 {
@@ -2911,6 +2939,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .m-5 {
   margin: 1.25rem;
+}
+
+.m-24 {
+  margin: 6rem;
 }
 
 .my-2 {
@@ -2974,6 +3006,14 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1.5rem;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -3020,6 +3060,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .h-12 {
   height: 3rem;
+}
+
+.h-10 {
+  height: 2.5rem;
 }
 
 .min-h-screen {
@@ -3072,6 +3116,16 @@ body[dir="rtl"] .checkbox:checked,
 
 .w-screen {
   width: 100vw;
+}
+
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
 }
 
 .max-w-md {
@@ -3196,6 +3250,10 @@ body[dir="rtl"] .checkbox:checked,
   align-self: center;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -3301,24 +3359,24 @@ body[dir="rtl"] .checkbox:checked,
   background-color: rgb(20 33 61 / var(--tw-bg-opacity));
 }
 
-.bg-sun-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 194 98 / var(--tw-bg-opacity));
-}
-
 .bg-porcelain-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 238 240 / var(--tw-bg-opacity));
 }
 
-.bg-base-200 {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
-}
-
 .bg-sun-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 179 57 / var(--tw-bg-opacity));
+}
+
+.bg-sun-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 194 98 / var(--tw-bg-opacity));
+}
+
+.bg-base-200 {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60 {
@@ -3422,12 +3480,12 @@ body[dir="rtl"] .checkbox:checked,
   text-align: right;
 }
 
-.font-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
 .font-sans {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .text-xl {
@@ -3450,14 +3508,14 @@ body[dir="rtl"] .checkbox:checked,
   line-height: 1;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {

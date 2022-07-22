@@ -18,10 +18,12 @@ background-repeat: no-repeat;
 background-size: cover;
 }</style>
 </head>
-<body>
-<div class="navbar  bg-sun-50 h-16 rounded-full m-1 mt-5 mb-5 w-auto">
+<body class="parallax">
+<div class="hero-overlay bg-opacity-60"><!-- div not closed -->
+<div class="navbar  bg-sun-50 h-16 rounded-full m-2 w-auto">
   <div class="flex-1">
     <a class="btn btn-ghost normal-case text-xl">Sneaker Avenue</a>
+    
   </div>
 
 
@@ -51,6 +53,7 @@ background-size: cover;
       </div>
     </div>
   </div>
+  
 
     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">

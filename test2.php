@@ -32,11 +32,12 @@ if (isset($_POST['LIbtn'])) {
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
 <div class=" h-screen overflow-hidden flex flex-col items-center justify-center ">
   <div class= " bg-opacity-90 backdrop-blur-xl rounded-xl lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
     <div class="z-10 bg-transparent absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
-    <button class="btn btn-ghost"><a href="admin.html"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
+    <button class="btn btn-ghost h-10"><a href="admin.html"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
     </div>
     <form class="p-12 md:p-24" action="" method="post">
       <div class="flex items-center text-lg mb-6 md:mb-8">
