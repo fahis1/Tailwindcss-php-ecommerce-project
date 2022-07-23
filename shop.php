@@ -96,7 +96,7 @@ foreach($result as $row){
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";
 // <img src='products/$img' height='200px' width='200px'>
 
-echo "<div class='card w-96 hover:scale-105 bg-porcelain-500 m-5 shadow-xl'>
+echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-porcelain-500 m-5 shadow-xl'>
 <figure>
 <img src='products/$img' height='200px' width='200px'>
 </figure>
@@ -104,8 +104,8 @@ echo "<div class='card w-96 hover:scale-105 bg-porcelain-500 m-5 shadow-xl'>
   <h2 class='card-title'> ",$row['pname'],"</h2>
   <p>    ",$row['price'],"</p>
   <div class='card-actions justify-end'>
-  <button class='btn btn-secondary'>Add to Cart</button>
-  <a href='product.php?id=",$row['id'],"'><button class='btn btn-primary'>Buy Now</button></a>
+  <button class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105'>Add to Cart</button>
+  <a href='product.php?id=",$row['id'],"'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</button></a>
   </div>
 </div>
 </div>";
