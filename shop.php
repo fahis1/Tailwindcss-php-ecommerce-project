@@ -96,7 +96,7 @@ foreach($result as $row){
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";
 // <img src='products/$img' height='200px' width='200px'>
 
-echo "<div class='card w-96 bg-porcelain-500 m-5 shadow-xl'>
+echo "<div class='card w-96 hover:scale-105 bg-porcelain-500 m-5 shadow-xl'>
 <figure>
 <img src='products/$img' height='200px' width='200px'>
 </figure>
