@@ -16,14 +16,15 @@ background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
-}</style>
+}
+</style>
 </head>
 <body class="parallax">
-<div class="hero-overlay bg-opacity-60"><!-- div not closed -->
-<div class="navbar  bg-sun-50 h-16 rounded-full m-2 w-auto">
+<div class="hero-overlay top-0 static bg-opacity-60"><!-- div not closed -->
+<div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full mt-2 m-2 top-2 sticky w-auto
+ z-50">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">Sneaker Avenue</a>
-    
+    <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
 
 
@@ -46,7 +47,7 @@ background-size: cover;
           <span class="font-bold text-lg">8 Items</span>
           <span class="text-info">Subtotal: $999</span>
           <div class="card-actions">
-            <button class="btn btn-primary btn-block btn-accent">View cart</button>
+            <button class="btn btn-primary btn-block">View cart</button>
             <button class="btn btn-secondary btn-block ">checkout</button>
           </div>
         </div>
@@ -69,7 +70,7 @@ background-size: cover;
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><a href="index.php">Logout</a></li>
       </ul>
     </div>
   </div>

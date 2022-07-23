@@ -36,7 +36,7 @@ if (isset($_POST['LIbtn'])) {
 <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-screen overflow-hidden flex flex-col items-center justify-center">
   <div class="bg-white bg-opacity-30 backdrop-blur-xl rounded-lg lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
     <div class="bg-transparent absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
-    <button class="btn btn-ghost"><a href="admin.html"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
+    <button class="btn btn-ghost"><a href="add_products.php"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
     </div>
     <form class="p-12 md:p-24" action="" method="post">
       <div class="flex items-center text-lg mb-6 md:mb-8">
@@ -54,7 +54,7 @@ if (isset($_POST['LIbtn'])) {
     
       <button class="btn bg-primary font-medium p-2 md:p-4 text-white uppercase w-full" name="LIbtn">Login</button>
       
-      <button class="btn btn-ghost self-center btn-outline mt-3 left-44 "><a href="signup.php">sign up</a></button>
+      <a href="signup.php"><button class="btn btn-ghost self-center btn-outline mt-3 left-44 "><a href="signup.php">sign up</a></button></a>
     </form>
   </div>
   
