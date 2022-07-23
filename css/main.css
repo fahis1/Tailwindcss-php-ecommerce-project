@@ -32,17 +32,6 @@
 4. Use the user's configured `sans` font-family by default.
 */
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
-*::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-* {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
-}
-
 html {
   line-height: 1.5;
   /* 1 */
@@ -824,6 +813,12 @@ html {
   pointer-events: none;
 }
 
+.btn-square {
+  height: 3rem;
+  width: 3rem;
+  padding: 0px;
+}
+
 .btn-circle {
   height: 3rem;
   width: 3rem;
@@ -1325,8 +1320,37 @@ html {
   border-radius: var(--rounded-btn, 0.5rem);
 }
 
+.input-group {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
 .input-group > *, .input-group > .input {
   border-radius: 0px;
+}
+
+.input-group :where(span) {
+  display: flex;
+  align-items: center;
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.input-group :first-child {
+  border-top-left-radius: var(--rounded-btn, 0.5rem);
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--rounded-btn, 0.5rem);
+  border-bottom-right-radius: 0;
+}
+
+.input-group :last-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--rounded-btn, 0.5rem);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: var(--rounded-btn, 0.5rem);
 }
 
 .link {
@@ -2446,6 +2470,12 @@ body[dir="rtl"] .checkbox:checked,
   border-bottom-left-radius: inherit;
 }
 
+.mockup-phone .display {
+  overflow: hidden;
+  border-radius: 40px;
+  margin-top: -25px;
+}
+
 .modal-open .modal-box, .modal-toggle:checked + .modal .modal-box, .modal:target .modal-box {
   --tw-translate-y: 0px;
   --tw-scale-x: 1;
@@ -2675,6 +2705,30 @@ body[dir="rtl"] .checkbox:checked,
   width: 100%;
 }
 
+.btn-square:where(.btn-xs) {
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 0px;
+}
+
+.btn-square:where(.btn-sm) {
+  height: 2rem;
+  width: 2rem;
+  padding: 0px;
+}
+
+.btn-square:where(.btn-md) {
+  height: 3rem;
+  width: 3rem;
+  padding: 0px;
+}
+
+.btn-square:where(.btn-lg) {
+  height: 4rem;
+  width: 4rem;
+  padding: 0px;
+}
+
 .btn-circle:where(.btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -2889,6 +2943,10 @@ body[dir="rtl"] .checkbox:checked,
   left: 11rem;
 }
 
+.top-2 {
+  top: 0.5rem;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -2897,24 +2955,16 @@ body[dir="rtl"] .checkbox:checked,
   left: 0px;
 }
 
-.top-2 {
-  top: 0.5rem;
-}
-
 .z-10 {
   z-index: 10;
-}
-
-.-z-10 {
-  z-index: -10;
 }
 
 .z-50 {
   z-index: 50;
 }
 
-.z-0 {
-  z-index: 0;
+.-z-10 {
+  z-index: -10;
 }
 
 .col-span-3 {
@@ -2937,12 +2987,12 @@ body[dir="rtl"] .checkbox:checked,
   margin: 0.5rem;
 }
 
-.m-5 {
-  margin: 1.25rem;
-}
-
 .m-24 {
   margin: 6rem;
+}
+
+.m-5 {
+  margin: 1.25rem;
 }
 
 .my-2 {
@@ -3004,14 +3054,6 @@ body[dir="rtl"] .checkbox:checked,
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .inline-block {
@@ -3116,12 +3158,6 @@ body[dir="rtl"] .checkbox:checked,
 
 .w-screen {
   width: 100vw;
-}
-
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
 }
 
 .w-11\/12 {
@@ -3248,10 +3284,6 @@ body[dir="rtl"] .checkbox:checked,
 
 .self-center {
   align-self: center;
-}
-
-.overflow-auto {
-  overflow: auto;
 }
 
 .overflow-hidden {

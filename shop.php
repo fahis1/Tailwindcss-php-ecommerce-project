@@ -7,17 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
+    <style>
+      /* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+    </style>
 </head>
 <body>
 
-<div class="navbar bg-sun-50 h-16 rounded-full m-2 top-2 fixed w-full z-50">
+<div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full m-2 top-2 sticky w-auto
+ z-50">
   <div class="flex-1">
     <a class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
 
     <div class="form-control">
       <form action="" method="post">
-      <input type="text" placeholder="Search" name="search" class="input input-bordered" />
+      <!-- <input type="text" placeholder="Search" name="search" class="input input-bordered" /> -->
+      <div class="input-group">
+    <input type="text" placeholder="Search…" name="search" class="input input-bordered" />
+    <button class="btn btn-square">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    </button>
+  </div>
       </form>    
     </div>
   <div class="flex-none">
@@ -71,7 +90,7 @@ else
 $sql="SELECT * FROM products";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
-echo "<div class='bg-sun-300 flex flex-wrap m-24 justify-center flex-row'>";
+echo "<div class='bg-sun-300 flex flex-wrap  justify-center flex-row'>";
 foreach($result as $row){
     $img=$row["image"];
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";
