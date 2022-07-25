@@ -33,8 +33,11 @@ include("connect.php");
       </ul>
     </div>
 </div>
-<div class=" bg-mercury-500 rounded-lg max-w-5 m-2">
+<div class=" bg-mercury-500 rounded-lg max-w-5 m-2 p-2">
    <button class="btn bg-dblue-500 text-white"><a href="add_products.php"><h2>Add new product +</h2></a></button>
+   <label for='edit' class='btn bg-dblue-500 text-white modal-button'>Edit Product</label>
+   <label for='delete' class='btn bg-dblue-500 text-white modal-button'>Delete product</label>
+
 
 <!-- Page content here -->
 <?php 
@@ -42,7 +45,7 @@ include("connect.php");
 $sql="SELECT * FROM products";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
-echo "<div class='overflow-x-auto'>
+echo "<div class='overflow-x-auto mt-2'>
 <table class='table table-zebra w-full'>
   <!-- head -->
   <thead class='text-center'>
@@ -65,7 +68,7 @@ foreach ($result as $row) {
         <td>",$row["pname"],"</td>
         <td>",$row["price"],"</td>
         <td class='max-w-lg whitespace-pre-line'>",$row["pdesc"],"</td>
-        <td><img src='products/$img' height='300px' width='300px'></td>
+        <td><img src='products/$img' class='border-double rounded-lg border-4 border-dblue-500' height='300px' width='300px'></td>
       </tr>";
 }
 echo "    </tbody>
@@ -76,7 +79,7 @@ echo "    </tbody>
   </div>  
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
-    <ul class="menu p-4 overflow-y-auto w-80 bg-dblue-300 text-white">
+    <ul class="menu p-4 overflow-y-auto w-80 bg-dblue-200 text-white">
       <!-- Sidebar content here -->
       <li><a href="add_products.php">add products</a></li>
       <li><a href="list_products.php">View products</a></li>
@@ -85,6 +88,73 @@ echo "    </tbody>
     </ul>
   </div>
 </div>
+<input type='checkbox' id='delete' class='modal-toggle' />
+      <div class='modal'>
+      <div class='modal-box '>
+        <h3 class=' text-lg font-black '>Are you sure!</h3>
+        <p class='pt-4 font-bold text-error'>Once you delete a product it cannot be undone !</p>
+        <p class=' font-medium '>confirm deletion by entering the id of the product to delete</p>
+        <div class='modal-action items-center flex flex-col justify-center'>
+          <form action='' method='post'>
+          <input class='input input-bordered mb-3 w-full max-w-xs' type='number' name='id' placeholder="Enter account id"><br>
+          <label for='delete' class='btn mt-1  mr-20'>Cancel</label><button class='btn mt-1 ml-12s' type='submit' name='del'>Delete</button>
+        </form>
+        </div>
+      </div>
+    </div>
+<input type='checkbox' id='edit' class='modal-toggle' />
+      <div class='modal'>
+      <div class='modal-box '>
+        <h3 class='text-lg font-black '>Edit product!</h3>
+        <p class='pt-4 font-medium'>Enter id of the product to edit</p>
+        <div class='modal-action items-center flex flex-col justify-center'>
+          <form action='' method='post'>
+          <input class='input input-bordered mb-3 w-full max-w-xs' type='number' name='pid' placeholder="Enter product id"><br>
+          <label for='edit' class='btn mt-1  mr-20'>Cancel</label> <button class='btn mt-1 ml-12s' type='submit' name='continue'>Continue</button>
+          </form>
 
+        </div>
+      </div>
+    </div>
 </body>
 </html>
+
+
+<?php 
+ include ('connect.php');
+ if (isset($_POST['continue']))
+ {
+ $pid=$_POST["pid"];
+ header("Location: add_products.php?pid=,$pid,");
+ }
+ if (isset($_POST['del']))
+  {
+    $id=$_POST['id'];
+    $sql="delete from products where id='$id'";
+    if(mysqli_query($conn,$sql))
+    	{
+        echo '<script> setTimeout(function() { window.location = "list_products.php"; }, 2000); </script>';
+        echo "<div class='alert alert-success shadow-lg absolute top-3 z-10'>
+        <div>
+          <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+          <span>Product details has been deleted Successfully!</span>
+        </div>
+      </div>";
+       	}
+     else
+      {
+        header("Refresh:2");
+        echo "<div class='alert alert-error shadow-lg absolute top-3 z-10'>
+        <div>
+          <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+          <span>Product not found in database!</span>
+        </div>
+      </div>";
+      }
+  }	
+  ?>
+
+if (isset($_POST['continue']))
+  {
+    header("Location: add_products.php");
+  }
