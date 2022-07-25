@@ -6,7 +6,7 @@ if (isset($_POST['LIbtn'])) {
     $lpass=$_POST["lpass"];
     $sql = "select *from acc where name = '$userid' and password = '$lpass'";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $count = mysqli_num_rows($result); 
           
     if ($count == 1) {
@@ -33,7 +33,8 @@ if (isset($_POST['LIbtn'])) {
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-screen overflow-hidden flex flex-col items-center justify-center">
+<div class=" bg-sun-500 h-screen overflow-hidden flex flex-col items-center justify-center">
+<img src="./images/LoGo2.png" width="1000" height="1000" alt="logo" class="lg:w-5/12 md:6/12 w-10/12 ">
   <div class="bg-white bg-opacity-30 backdrop-blur-xl rounded-lg lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
     <div class="bg-transparent absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
     <button class="btn btn-ghost"><a href="add_products.php"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
