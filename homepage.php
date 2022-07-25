@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="en" data-theme="cupcake" class="hero-overlay bg-opacity-60 -z-1">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,15 +20,12 @@ background-size: cover;
 </style>
 </head>
 <body class="parallax">
-<div class="hero-overlay top-0 static bg-opacity-60"><!-- div not closed -->
+<div class="hero-overlay bg-opacity-60"><!-- div not closed -->
 <div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full mt-2 m-2 top-2 sticky w-auto
  z-50">
   <div class="flex-1">
     <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
-
-
-
   <div class="flex-none gap-2">
     <div class="form-control">
       <input type="text" placeholder="Search" class="input input-bordered" />
