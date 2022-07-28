@@ -130,9 +130,15 @@ echo "    </tbody>
  if (isset($_POST['del']))
   {
     $id=$_POST['id'];
-    $sql="delete from products where id='$id'";
-    if(mysqli_query($conn,$sql))
+    $sql="select * from products where id='$id'";
+    $result=mysqli_query($conn,$sql);
+    $count=mysqli_num_rows($result);
+          $row=mysqli_fetch_assoc($result);
+          
+          if($count>0)
     	{
+        $sql="delete from products where id='$id'";
+        mysqli_query($conn,$sql);
         echo '<script> setTimeout(function() { window.location = "list_products.php"; }, 2000); </script>';
         echo "<div class='alert alert-success shadow-lg absolute top-3 z-10'>
         <div>
@@ -143,7 +149,7 @@ echo "    </tbody>
        	}
      else
       {
-        header("Refresh:2");
+        echo '<script> setTimeout(function() { window.location = "list_products.php"; }, 2000); </script>';
         echo "<div class='alert alert-error shadow-lg absolute top-3 z-10'>
         <div>
           <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
@@ -153,8 +159,9 @@ echo "    </tbody>
       }
   }	
   ?>
-
+<?php
 if (isset($_POST['continue']))
   {
-    header("Location: add_products.php");
+    echo '<script>window.location = "add_products.php?id=',$pid,'";</script>';
   }
+  ?>
