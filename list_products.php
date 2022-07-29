@@ -15,6 +15,7 @@ include("connect.php");
 <div class="drawer"> 
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
+    <!-- page content here -->
   <div class="navbar bg-sun-500 h-16 rounded-full m-1 mt-5 mb-5 w-auto">
   <div class="flex-none">
   <label for="my-drawer" class="btn btn-ghost drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
@@ -33,19 +34,51 @@ include("connect.php");
       </ul>
     </div>
 </div>
-<div class=" bg-mercury-500 rounded-lg max-w-5 m-2 p-2">
-   <button class="btn bg-dblue-500 text-white"><a href="add_products.php"><h2>Add new product +</h2></a></button>
-   <label for='edit' class='btn bg-dblue-500 text-white modal-button'>Edit Product</label>
-   <label for='delete' class='btn bg-dblue-500 text-white modal-button'>Delete product</label>
+<div class=" bg-mercury-500 rounded-lg m-2 p-2 ">
+<div class="navbar">
 
 
-<!-- Page content here -->
+<div class="flex-1 gap-1">
+<button class="btn bg-dblue-500 text-white"><a href="add_products.php"><h2>Add new product +</h2></a></button>
+<label for='edit' class='btn bg-dblue-500 text-white modal-button'>Edit Product</label>
+<label for='delete' class='btn bg-dblue-500 text-white modal-button'>Delete product</label>
+</div>
+<div class="flex-none gap-2">
+  <form action="" method="POST">
+        <div class=" input-group">
+        <input type="text" placeholder="Search…" name="Search" class="input input-bordered" />
+        <button class="btn btn-square bg-dblue-500 " name="Sbtn">
+        <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        </button>
+</div>
+  </form>
+</div>
+
+</div>
+</div>
+<div class=" bg-mercury-500 rounded-lg m-2 p-2 ">
+    
 <?php 
 include("connect.php");
-$sql="SELECT * FROM products";
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_assoc($result);
-echo "<div class='overflow-x-auto mt-2'>
+if(isset($_POST['Sbtn']))
+        {
+          $filtervalues=$_POST['Search'];
+          $sql="SELECT * FROM products WHERE CONCAT(id,bname,pname) LIKE '%$filtervalues%'";
+          $result=mysqli_query($conn,$sql);
+          $count=mysqli_num_rows($result);
+          $row=mysqli_fetch_assoc($result);
+          if($count==0)
+          {
+            echo '<script> setTimeout(function() { window.location = "list_products.php"; }, 2500); </script>';
+        echo "<div class='alert alert-warning shadow-lg  z-10'>
+        <div>
+          <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+          <span>Product not found in database!</span>
+        </div>
+      </div>";
+            exit();
+          }
+          echo "<div class='overflow-x-auto mt-2'>
 <table class='table table-zebra w-full'>
   <!-- head -->
   <thead class='text-center'>
@@ -58,7 +91,8 @@ echo "<div class='overflow-x-auto mt-2'>
       <th>Image</th>
     </tr>
   </thead>";
-foreach ($result as $row) {
+            foreach ($result as $row) {
+          
     $img=$row["image"];
     echo 
     "<tbody class='text-center'>
@@ -70,6 +104,40 @@ foreach ($result as $row) {
         <td class='max-w-lg whitespace-pre-line'>",$row["pdesc"],"</td>
         <td><img src='products/$img' class='border-double rounded-lg border-4 border-dblue-500' height='300px' width='300px'></td>
       </tr>";
+          }
+        }
+           else 
+           {
+                      echo "<div class='overflow-x-auto mt-2'>
+<table class='table table-zebra w-full'>
+  <!-- head -->
+  <thead class='text-center'>
+    <tr>
+      <th>Id</th>
+      <th>Brand name</th>
+      <th>Product name</th>
+      <th>price</th>
+      <th>description</th>
+      <th>Image</th>
+    </tr>
+  </thead>";
+            $sql="SELECT * FROM products";
+          $result=mysqli_query($conn,$sql);
+          $row=mysqli_fetch_assoc($result);
+            foreach ($result as $row) {
+    $img=$row["image"];
+    echo 
+    "<tbody class='text-center'>
+      <tr class='hover'>
+        <th>",$row["id"],"</th>
+        <td>",$row["bname"],"</td>
+        <td>",$row["pname"],"</td>
+        <td>",$row["price"],"</td>
+        <td class='max-w-lg whitespace-pre-line'>",$row["pdesc"],"</td>
+        <td><img src='products/$img' class='border-double rounded-lg border-4 border-dblue-500' height='300px' width='300px'></td>
+      </tr>";
+           }
+
 }
 echo "    </tbody>
 </table>
