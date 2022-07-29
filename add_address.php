@@ -4,6 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+      *{
+        font-family: 'Inter', sans-serif;
+      }
+      </style>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>address</title>
@@ -11,7 +19,7 @@
 </head>
  <body>
     <form action=""  method="post">
-   <center>
+
   <h1> Add Address </h1>
    <hr>
     <h4> Contact Info </h4>
@@ -28,7 +36,7 @@
       <input type ="text" name="landmark" placeholder="Landmark(optional)"><br>
       <hr>
       <input type="submit" name="save" value="Save Address">
-    </center>
+
      <?php 
         if(isset($_POST['save']))
         {

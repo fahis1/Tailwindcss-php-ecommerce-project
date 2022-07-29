@@ -8,6 +8,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
     <style>
+      *{
+        font-family: 'Inter', sans-serif;
+      }
+      </style>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 
+    <style>
       /* Hide scrollbar for Chrome, Safari and Opera */
 *::-webkit-scrollbar {
     display: none;
@@ -22,8 +30,7 @@
 </head>
 <body>
 
-<div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full m-2 top-2 sticky w-auto
- z-50">
+<div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full m-2 top-2 sticky w-auto z-50">
   <div class="flex-1">
     <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
@@ -101,7 +108,7 @@ echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-
 <img src='products/$img' class='transition ease-in-out delay-150 duration-500 hover:rotate-12 hover:scale-125' height='200px' width='200px'>
 </figure>
 <div class='card-body'>
-  <h2 class='card-title'> ",$row['pname'],"</h2>
+  <h2 class='card-title z-50'> ",$row['pname'],"</h2>
   <p>    ",$row['price'],"</p>
   <div class='card-actions justify-end'>
   <button class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105'>Add to Cart</button>

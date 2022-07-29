@@ -5,6 +5,14 @@ include("connect.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+      *{
+        font-family: 'Inter', sans-serif;
+      }
+      </style>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +28,7 @@ include("connect.php");
   <label for="my-drawer" class="btn btn-ghost drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">Sneaker avenue</a><span><img src="images/LoGo2.png" height="80px" width="80px"></span>
+  <a class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">

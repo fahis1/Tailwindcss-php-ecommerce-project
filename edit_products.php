@@ -1,10 +1,12 @@
 <?php
 include("connect.php");
+$pid=$_GET['id'];
   // Create database connection
   $target_dir="products/";
   $status=2;
   // If upload button is clicked ...
-  if (isset($_POST['upload'])) {
+  if (isset($_POST['image'])&&isset($_POST['upload'])) 
+  {
       // Get image name
       $image = $_FILES['image']['name'];
       // Get text
@@ -17,17 +19,36 @@ include("connect.php");
      
       $target = $target_dir.basename($image);
 
-      $sql = "INSERT INTO `products`(`bname`,`pname`, `pdesc`, `price`, `offer`, `image`) VALUES ('$bn','$pn','$pd','$pr','$off','$image')";
+      $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off', `image`='$image'  WHERE id='$pid'";
       // execute query
       
-
-      if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        mysqli_query($conn, $sql);
+      move_uploaded_file($_FILES['image']['tmp_name'], $target);
+      if (mysqli_query($conn, $sql)) {
+        
         $status=1;
          
       } else {
         $status=0;
       }
+  }
+  elseif(isset($_POST['upload']))
+  {
+    $pn = mysqli_real_escape_string($conn,$_POST['pname']);
+    $bn = mysqli_real_escape_string($conn,$_POST['bname']);
+    $pd = mysqli_real_escape_string($conn,$_POST['pdesc']);
+    $off= mysqli_real_escape_string($conn,$_POST['off']);
+    $pr =  mysqli_real_escape_string($conn,$_POST['price']);
+
+
+    $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off'  WHERE id='$pid'";
+
+    if (mysqli_query($conn, $sql)) {
+        
+      $status=1;
+       
+    } else {
+      $status=0;
+    }
   }
 ?>
 <!DOCTYPE html>
@@ -94,7 +115,7 @@ include("connect.php");
          m-2">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          <span>Image has been uploaded succesfully</span>
+          <span>Product has been updated succesfully</span>
         </div>
       </div>';
     }
@@ -111,23 +132,36 @@ include("connect.php");
     ?>
     <div class=" bg-mercury-500 rounded-lg max-w-5 m-2 p-4">
     <div class="flex flex-row flex-wrap items-center justify-center m-1 mb-6 md:mb-8">
-        <form action="" method="post" enctype="multipart/form-data" class=" bg-sun-100 rounded-2xl p-3">
-           <h1 class=" font-extrabold underline text-2xl">Add new product</h1><br>
-            <h3 class=" font-semibold"> Brand name </h3>
-            <input class="input input-bordered w-96 m-2" type="text" name="bname" placeholder="brand name">
-            <h3 class=" font-semibold">Product name </h3>
-            <input class="input input-bordered w-96 m-2" type="text" name="pname" placeholder="product name">
-            <h3 class=" font-semibold">Product description </h3>
-            <textarea class='textarea textarea-bordered w-96 max-h-96 h-12 m-2' type='text' name='pdesc' placeholder='product description' oninput='auto_grow(this)' autocomplete='off'></textarea>
-            <h3 class=" font-semibold">Price </h3> 
-            <input class="input input-bordered w-96 m-2" type="text" name="price" placeholder="price">
-            <h3 class=" font-semibold">Offer percentage</h3> 
-            <input class="input input-bordered w-96 m-2" type="text" name="off" placeholder="discount percentage">
-<br>
-            <input class="hidden" id="file-upload" type="file" name="image" value="shoe image">
-            <label for="file-upload" class="btn btn-accent m-2">Upload image</label> 
+        <form action="" method="post" enctype="multipart/form-data" class=" bg-sun-100 rounded-2xl p-3 w-auto">
+          <?php
+          include("connect.php");
+          $sql="SELECT * FROM products WHERE id='$pid'";
+          $result=mysqli_query($conn,$sql);
+          $row=mysqli_fetch_assoc($result);
+          $bn=$row["bname"];
+          $pn=$row["pname"];
+          $pr=$row["price"];
+          $pd=$row["pdesc"];
+          $off=$row["offer"];
+          $img=$row["image"];
+          echo "<h1 class=' font-extrabold underline text-2xl'>Edit product details</h1><br>
+          <h3 class=' font-semibold'> Brand name </h3>
+          <input class='input input-bordered w-96 m-2' type='text' name='bname' placeholder='brand name' value='$bn'>
+          <h3 class=' font-semibold'>Product name </h3>
+          <input class='input input-bordered w-96 m-2' type='text' name='pname' placeholder='product name' value='$pn'>
+          <h3 class=' font-semibold'>Product description </h3>
+          <textarea class='textarea textarea-bordered w-96 h-96 m-2' type='text' name='pdesc' placeholder='product description' oninput='auto_grow(this)' autocomplete='off'>'$pd'</textarea>
+          <h3 class=' font-semibold'>Price </h3> 
+          <input class='input input-bordered w-96 m-2' type='text' name='price' placeholder='price' value='$pr'>
+          <h3 class=' font-semibold'>Offer percentage</h3> 
+          <input class='input input-bordered w-96 m-2' type='text' name='off' placeholder='discount percentage' value='$off'>
+          <br>
+          <img src='products/$img' class='border-double rounded-lg border-4 ml-auto mr-auto border-dblue-500' height='400px' width='400px'>
+          ";
+            ?>
+            <input class='hidden' id='file-upload' type='file' name='image' value='$img' accept='image/*,.webp'>
+            <label for="file-upload" class="btn btn-accent m-2">Update image</label> 
             <input type="submit" name="upload" class="btn btn-primary" value="submit">
-   
         </form>
     </div>
     </div>

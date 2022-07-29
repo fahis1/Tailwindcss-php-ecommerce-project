@@ -12,6 +12,7 @@ if (isset($_POST['LIbtn'])) {
     if ($count == 1) {
         echo "<h1><center> Login successful </center></h1>";
         header("Location: homepage.php");
+        echo "<script>window.location = 'homepage.php'; </script>";
     } else {
         echo '<div class="alert alert-error shadow-lg absolute top-3">
       <div>
