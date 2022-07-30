@@ -109,7 +109,7 @@ if (isset($_POST['upload'])) {
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-        <a href="index.php">Logout</a>
+      <li><a href="logout.php">Logout</a></li>
       </ul>
     </div>
 </div>

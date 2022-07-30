@@ -67,7 +67,7 @@ background-size: cover;
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a href="index.php">Logout</a></li>
+        <li><a href="logout.php">Logout</a></li>
       </ul>
     </div>
   </div>

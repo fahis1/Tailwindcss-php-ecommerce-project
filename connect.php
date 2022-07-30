@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
 $host = "127.0.0.1";
 $username = "root";
 $password = "";

@@ -6,10 +6,12 @@ if (isset($_POST['LIbtn'])) {
     $lpass=$_POST["lpass"];
     $sql = "select *from acc where name = '$userid' and password = '$lpass'";
     $result = mysqli_query($conn, $sql);
-    // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $count = mysqli_num_rows($result); 
           
     if ($count == 1) {
+      $_SESSION["log"]=1;
+      $_SESSION["uid"]=$row["id"];
         echo "<h1><center> Login successful </center></h1>";
         header("Location: homepage.php");
         echo "<script>window.location = 'homepage.php'; </script>";

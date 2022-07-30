@@ -78,7 +78,7 @@
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a href="index.php">Logout</a></li>
+        <li><a href="logout.php">Logout</a></li>
       </ul>
     </div>
   </div>
@@ -108,7 +108,7 @@ echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-
 <img src='products/$img' class='transition ease-in-out delay-150 duration-500 hover:rotate-12 hover:scale-125' height='200px' width='200px'>
 </figure>
 <div class='card-body'>
-  <h2 class='card-title z-50'> ",$row['pname'],"</h2>
+  <h2 class='card-title z-45'> ",$row['pname'],"</h2>
   <p>    ",$row['price'],"</p>
   <div class='card-actions justify-end'>
   <button class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105'>Add to Cart</button>
