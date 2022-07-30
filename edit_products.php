@@ -5,51 +5,56 @@ $pid=$_GET['id'];
   $target_dir="products/";
   $status=2;
   // If upload button is clicked ...
-  if (isset($_POST['image'])&&isset($_POST['upload'])) 
-  {
-      // Get image name
-      $image = $_FILES['image']['name'];
-      // Get text
-      $pn = mysqli_real_escape_string($conn,$_POST['pname']);
-      $bn = mysqli_real_escape_string($conn,$_POST['bname']);
-      $pd = mysqli_real_escape_string($conn,$_POST['pdesc']);
-      $off= mysqli_real_escape_string($conn,$_POST['off']);
-      $pr =  mysqli_real_escape_string($conn,$_POST['price']);
-      // image file directory
-     
-      $target = $target_dir.basename($image);
-
-      $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off', `image`='$image'  WHERE id='$pid'";
-      // execute query
-      
-      move_uploaded_file($_FILES['image']['tmp_name'], $target);
-      if (mysqli_query($conn, $sql)) {
-        
-        $status=1;
-         
-      } else {
-        $status=0;
-      }
-  }
-  elseif(isset($_POST['upload']))
-  {
-    $pn = mysqli_real_escape_string($conn,$_POST['pname']);
-    $bn = mysqli_real_escape_string($conn,$_POST['bname']);
-    $pd = mysqli_real_escape_string($conn,$_POST['pdesc']);
-    $off= mysqli_real_escape_string($conn,$_POST['off']);
-    $pr =  mysqli_real_escape_string($conn,$_POST['price']);
+if (isset($_POST['upload'])) {
+    if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
+     // Get text
+     $pn = mysqli_real_escape_string($conn, $_POST['pname']);
+     $bn = mysqli_real_escape_string($conn, $_POST['bname']);
+     $pd = mysqli_real_escape_string($conn, $_POST['pdesc']);
+     $off= mysqli_real_escape_string($conn, $_POST['off']);
+     $pr =  mysqli_real_escape_string($conn, $_POST['price']);
+     // image file directory
+  
 
 
-    $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off'  WHERE id='$pid'";
+     $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off' WHERE id='$pid'";
+     // execute query
 
-    if (mysqli_query($conn, $sql)) {
-        
-      $status=1;
-       
-    } else {
-      $status=0;
+     if (mysqli_query($conn, $sql)) {
+         $status=1;
+     } else {
+         $status=0;
+     } 
     }
-  }
+    else
+    {
+      
+       // Get image name
+       $image = $_FILES['image']['name'];
+       // Get text
+       $pn = mysqli_real_escape_string($conn, $_POST['pname']);
+       $bn = mysqli_real_escape_string($conn, $_POST['bname']);
+       $pd = mysqli_real_escape_string($conn, $_POST['pdesc']);
+       $off= mysqli_real_escape_string($conn, $_POST['off']);
+       $pr =  mysqli_real_escape_string($conn, $_POST['price']);
+       // image file directory
+    
+       $target = $target_dir.basename($image);
+
+       $sql = "UPDATE `products` SET `bname`='$bn' , `pname`='$pn' ,`pdesc`='$pd', `price`='$pr', `offer`='$off', `image`='$image'  WHERE id='$pid'";
+       // execute query
+     
+       move_uploaded_file($_FILES['image']['tmp_name'], $target);
+       if (mysqli_query($conn, $sql)) {
+           $status=1;
+       } else {
+           $status=0;
+       }
+     
+    }
+       
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -150,7 +155,7 @@ $pid=$_GET['id'];
           <h3 class=' font-semibold'>Product name </h3>
           <input class='input input-bordered w-96 m-2' type='text' name='pname' placeholder='product name' value='$pn'>
           <h3 class=' font-semibold'>Product description </h3>
-          <textarea class='textarea textarea-bordered w-96 h-96 m-2' type='text' name='pdesc' placeholder='product description' oninput='auto_grow(this)' autocomplete='off'>'$pd'</textarea>
+          <textarea class='textarea textarea-bordered w-96 h-96 m-2' type='text' name='pdesc' placeholder='product description' oninput='auto_grow(this)' autocomplete='off'>$pd</textarea>
           <h3 class=' font-semibold'>Price </h3> 
           <input class='input input-bordered w-96 m-2' type='text' name='price' placeholder='price' value='$pr'>
           <h3 class=' font-semibold'>Offer percentage</h3> 
@@ -159,8 +164,8 @@ $pid=$_GET['id'];
           <img src='products/$img' class='border-double rounded-lg border-4 ml-auto mr-auto border-dblue-500' height='400px' width='400px'>
           ";
             ?>
-            <input class='hidden' id='file-upload' type='file' name='image' value='$img' accept='image/*,.webp'>
-            <label for="file-upload" class="btn btn-accent m-2">Update image</label> 
+            <input class='hidden' id='file-upload' type='file' name='image' accept='image/*,.webp'>
+            <label for="file-upload" class="btn btn-accent m-2" name="image_upload" >Update image</label> 
             <input type="submit" name="upload" class="btn btn-primary" value="submit">
         </form>
     </div>
