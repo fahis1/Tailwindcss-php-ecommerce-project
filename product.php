@@ -1,5 +1,5 @@
 <?php
-include("connect.php");
+include("include/connect.php");
 $pid=$_GET['id'];
 $sql="SELECT * FROM products WHERE id='$pid'";
 $result=mysqli_query($conn,$sql);

@@ -1,8 +1,10 @@
 <?php
-include("connect.php");
+include("../include/connect.php");
+include("../include/admin_session.php");
+
 $pid=$_GET['id'];
   // Create database connection
-  $target_dir="products/";
+  $target_dir="../products/";
   $status=2;
   // If upload button is clicked ...
 if (isset($_POST['upload'])) {
@@ -63,7 +65,7 @@ if (isset($_POST['upload'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <style>
       *{
         font-family: 'Inter', sans-serif;
@@ -109,7 +111,7 @@ if (isset($_POST['upload'])) {
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-      <li><a href="logout.php">Logout</a></li>
+      <li><a href="include/logout.php">Logout</a></li>
       </ul>
     </div>
 </div>
@@ -139,7 +141,7 @@ if (isset($_POST['upload'])) {
     <div class="flex flex-row flex-wrap items-center justify-center m-1 mb-6 md:mb-8">
         <form action="" method="post" enctype="multipart/form-data" class=" bg-sun-100 rounded-2xl p-3 w-auto">
           <?php
-          include("connect.php");
+          include("../include/connect.php");
           $sql="SELECT * FROM products WHERE id='$pid'";
           $result=mysqli_query($conn,$sql);
           $row=mysqli_fetch_assoc($result);
@@ -161,7 +163,7 @@ if (isset($_POST['upload'])) {
           <h3 class=' font-semibold'>Offer percentage</h3> 
           <input class='input input-bordered w-96 m-2' type='text' name='off' placeholder='discount percentage' value='$off'>
           <br>
-          <img src='products/$img' class='border-double rounded-lg border-4 ml-auto mr-auto border-dblue-500' height='400px' width='400px'>
+          <img src='../products/$img' class='border-double rounded-lg border-4 ml-auto mr-auto border-dblue-500' height='400px' width='400px'>
           ";
             ?>
             <input class='hidden' id='file-upload' type='file' name='image' accept='image/*,.webp'>

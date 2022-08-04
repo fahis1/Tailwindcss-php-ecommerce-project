@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="cupcake" class="hero-overlay bg-opacity-60 -z-1">
 <head>
@@ -24,7 +25,7 @@ background-size: cover;
 <div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full mt-2 m-2 top-2 sticky w-auto
  z-50">
   <div class="flex-1">
-    <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
+    <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><a href="admin/add_products.php"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="flex-none gap-2">
     <div class="form-control">
@@ -61,13 +62,13 @@ background-size: cover;
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
         <li>
-          <a class="justify-between">
+          <a class="justify-between" href="test.php">
             Profile
             <span class="badge">New</span>
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a href="logout.php">Logout</a></li>
+        <li><a href="include/logout.php">Logout</a></li>
       </ul>
     </div>
   </div>

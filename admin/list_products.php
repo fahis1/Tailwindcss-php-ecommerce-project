@@ -1,5 +1,6 @@
 <?php
-include("connect.php");
+include("../include/connect.php");
+include("../include/admin_session.php");
   
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ include("connect.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body class="bg-white">
 <div class="drawer"> 
@@ -29,16 +30,16 @@ include("connect.php");
   <label for="my-drawer" class="btn btn-ghost drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
   </div>
   <div class="flex-1">
-  <a class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
+  <a class="btn btn-ghost normal-case text-xl"><img src="../images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="dropdown dropdown-end z-50">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-5 ">
-          <img src="images/logout.png" />
+          <img src="../images/logout.png" />
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-      <li><a href="logout.php">Logout</a></li>
+      <li><a href="../include/logout.php">Logout</a></li>
       </ul>
     </div>
 </div>
@@ -67,7 +68,7 @@ include("connect.php");
 <div class=" bg-mercury-500 rounded-lg m-2 p-2 ">
     
 <?php 
-include("connect.php");
+include("../include/connect.php");
 if(isset($_POST['Sbtn']))
         {
           $filtervalues=$_POST['Search'];
@@ -142,7 +143,7 @@ if(isset($_POST['Sbtn']))
         <td>",$row["pname"],"</td>
         <td>",$row["price"],"</td>
         <td class='max-w-lg whitespace-pre-line'>",$row["pdesc"],"</td>
-        <td><img src='products/$img' class='border-double rounded-lg border-4 border-dblue-500' height='300px' width='300px'></td>
+        <td><img src='../products/$img' class='border-double rounded-lg border-4 border-dblue-500' height='300px' width='300px'></td>
       </tr>";
            }
 
@@ -197,7 +198,7 @@ echo "    </tbody>
 
 
 <?php 
- include ('connect.php');
+ include ('../include/connect.php');
  if (isset($_POST['continue']))
  {
  $pid=$_POST["pid"];

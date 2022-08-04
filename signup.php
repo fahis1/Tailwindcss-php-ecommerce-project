@@ -50,7 +50,7 @@
     </div>
   </div>  
   <?php
-include('connect.php');
+include('include/connect.php');
 if (isset($_POST["Sbtn"])) {
     $email=$_POST["email"];
     $pass=$_POST["password"];

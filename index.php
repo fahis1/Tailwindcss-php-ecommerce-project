@@ -1,21 +1,33 @@
 <?php
-include('connect.php');
-echo '';
+include('include/connect.php');
 if (isset($_POST['LIbtn'])) {
     $userid=$_POST["fname"];
     $lpass=$_POST["lpass"];
     $sql = "select *from acc where name = '$userid' and password = '$lpass'";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result); 
-          
-    if ($count == 1) {
-      $_SESSION["log"]=1;
+    $row=mysqli_fetch_assoc($result);
+    $count = mysqli_num_rows($result);
+    $acc_type=$row["admin"]; 
+    if ($count == 1 && $acc_type==1) {
+      $_SESSION["log"]=2;
       $_SESSION["uid"]=$row["id"];
+      $_SESSION["name"]=$row["name"];
+      $_SESSION["email"]=$row["email"];
         echo "<h1><center> Login successful </center></h1>";
         header("Location: homepage.php");
         echo "<script>window.location = 'homepage.php'; </script>";
-    } else {
+    } 
+    elseif($count == 1)
+    {
+      $_SESSION["log"]=1;
+      $_SESSION["uid"]=$row["id"];
+      $_SESSION["name"]=$row["name"];
+      $_SESSION["email"]=$row["email"];
+        echo "<h1><center> Login successful </center></h1>";
+        header("Location: homepage.php");
+        echo "<script>window.location = 'homepage.php'; </script>";
+    }
+    else {
         echo '<div class="alert alert-error shadow-lg absolute top-3">
       <div>
       <link rel="stylesheet" href="css/main.css">
@@ -40,7 +52,7 @@ if (isset($_POST['LIbtn'])) {
 <img src="./images/LoGo2.png" width="1000" height="1000" alt="logo" class="lg:w-5/12 md:6/12 w-10/12 ">
   <div class="bg-white bg-opacity-30 backdrop-blur-xl rounded-lg lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
     <div class="bg-transparent absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
-    <button class="btn btn-ghost"><a href="add_products.php"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a></button>
+    <button class="btn btn-ghost"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></button>
     </div>
     <form class="p-12 md:p-24" action="" method="post">
       <div class="flex items-center text-lg mb-6 md:mb-8">
