@@ -1,6 +1,6 @@
 module.exports = {
  
-  content: ['./*.html','./*.php',],
+  content: ['./*.html','./*.php','./admin/*.html','./admin/*.php','./include/*.html','./include/*.php',],
   plugins: [require("daisyui")],
   theme: {
     colors: {

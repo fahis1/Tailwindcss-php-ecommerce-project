@@ -1,5 +1,5 @@
 <?php
-include("connect.php");
+include("include/connect.php");
 $name=$_SESSION["name"];
 $id=$_SESSION["uid"];
 $log=$_SESSION["log"];

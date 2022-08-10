@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+include('include/connect.php');
 echo '';
 if (isset($_POST['LIbtn'])) {
     $userid=$_POST["fname"];

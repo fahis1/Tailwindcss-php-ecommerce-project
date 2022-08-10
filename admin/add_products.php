@@ -128,7 +128,7 @@ include("../include/admin_session.php");
 <br>
             <input class="hidden" id="file-upload" type="file" name="image" value="shoe image">
             <label for="file-upload" class="btn btn-accent m-2">Upload image</label> 
-            <input type="submit" name="upload" class="btn btn-primary" value="submit">
+            <input type="submit" name="upload" class="btn btn-accent" value="submit">
    
         </form>
     </div>
