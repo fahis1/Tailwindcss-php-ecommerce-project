@@ -1,4 +1,18 @@
 
+<?php
+include("include/connect.php");
+if(!isset($_SESSION["cart"])) 
+{ 
+  $_SESSION["cart"]=array();
+} 
+if(isset($_GET['ATC']))
+{
+    $pid=$_GET["ATC"];
+    $_SESSION["cart"][] = $pid;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="bg-sun-300">
 <head>
@@ -57,10 +71,14 @@
       <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
         <div class="card-body">
           <span class="font-bold text-lg">8 Items</span>
+          <?php 
+          include("include/connect.php");
+          print_r($_SESSION["cart"]); ?>
           <span class="text-info">Subtotal: $999</span>
-          <div class="card-actions">
+          <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
-          </div>
+            <button class="btn btn-secondary btn-block" method="get" name="clear_cart">Clear cart</button>
+          </form>
         </div>
       </div>
     </div>
@@ -88,6 +106,11 @@
 <?php 
 include("include/connect.php");
 
+if (isset($_POST["clear_cart"]))
+{
+  $_SESSION["cart"]=array();
+  header("Location: shop.php");
+}
 if (isset($_POST["search"]))
 {
   $srch=$_POST["search"];
@@ -97,9 +120,11 @@ else
 $sql="SELECT * FROM products";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
+
 echo "<div class='bg-sun-300 flex flex-wrap  justify-center flex-row'>";
 foreach($result as $row){
     $img=$row["image"];
+
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";
 // <img src='products/$img' height='200px' width='200px'>
 
@@ -109,13 +134,20 @@ echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-
 </figure>
 <div class='card-body'>
   <h2 class='card-title z-11'> ",$row['pname'],"</h2>
-  <p>    ",$row['price'],"</p>
+  <p>   ₹ ",$row['price'],"</p>
   <div class='card-actions justify-end'>
-  <button class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105'>Add to Cart</button>
+  <form method='get'>
+  <button type='submit' value='",$row['id'],"'  class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
+  </form>
   <a href='product.php?id=",$row['id'],"'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</button></a>
   </div>
 </div>
 </div>";
+// if(isset($_POST['ATC']))
+// {
+// 
+// }
 }
 echo "</div>";
+// print_r($cart);
 ?>
