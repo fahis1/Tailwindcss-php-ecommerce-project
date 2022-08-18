@@ -1,10 +1,10 @@
 
 <?php
 include("include/connect.php");
+$count=0;
 if(!isset($_SESSION["cart"])) 
 { 
   $_SESSION["cart"]=array();
-  $count=0;
 } 
 if(isset($_GET['ATC']))
 {
@@ -12,7 +12,11 @@ if(isset($_GET['ATC']))
     $_SESSION["cart"][] = $pid;
     $count=count($_SESSION["cart"]);
 }
-
+if (isset($_POST["clear_cart"]))
+{
+  $_SESSION["cart"]=array();
+  $count=0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,12 +76,28 @@ if(isset($_GET['ATC']))
           ?>
         </div>
       </label>
-      <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
-        <div class="card-body">
+      <div tabindex="0" class="mt-3 card card-compact dropdown-content w-72 bg-base-100 shadow">
+        <div class="card-body ">
         <?php 
           echo "<span class='font-bold text-lg'>",$count," Items</span>";
-          print_r($_SESSION["cart"]); ?>
-          <span class="text-info">Subtotal: $999</span>
+          $total=0;
+          $n=0;
+          $quantity=array_count_values($_SESSION['cart']);
+foreach ($quantity as $key => $value)
+{
+  $n+=1;
+   $sql="SELECT * FROM products WHERE id='$key'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
+    $name=$row["pname"];;
+    echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'</h2><span class="badge badge-md ">',$value,'</span>&ensp;';  
+    $price=$row["price"];
+    $price=(int)$price;
+    $total+=$price;
+    
+}
+echo "<span class='text-info'>Subtotal: ₹",$total,"</span>";
+      ?>
           <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
             <button class="btn btn-secondary btn-block" method="get" name="clear_cart">Clear cart</button>
@@ -109,11 +129,6 @@ if(isset($_GET['ATC']))
 <?php 
 include("include/connect.php");
 
-if (isset($_POST["clear_cart"]))
-{
-  $_SESSION["cart"]=array();
-  header("Location: shop.php");
-}
 if (isset($_POST["search"]))
 {
   $srch=$_POST["search"];
@@ -146,11 +161,6 @@ echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-
   </div>
 </div>
 </div>";
-// if(isset($_POST['ATC']))
-// {
-// 
-// }
 }
 echo "</div>";
-// print_r($cart);
 ?>
