@@ -25,12 +25,12 @@ include("../include/admin_session.php");
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
     <!-- page content here -->
-  <div class="navbar bg-sun-500 h-16 rounded-full m-1 mt-5 mb-5 w-auto">
+    <div class="navbar bg-sun-500 h-16 rounded-full m-2 top-2 w-auto">
   <div class="flex-none">
   <label for="my-drawer" class="btn btn-ghost drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
   </div>
   <div class="flex-1">
-  <a class="btn btn-ghost normal-case text-xl"><img src="../images/LoGo2.png" width="150" height="150" alt="logo"></a>
+    <a class="btn btn-ghost normal-case text-xl" href="../homepage.php"><img src="../images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="dropdown dropdown-end z-50">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">

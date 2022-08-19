@@ -57,7 +57,6 @@ if (isset($_POST["clear_cart"]))
 
     <div class="form-control">
       <form action="" method="post">
-      <!-- <input type="text" placeholder="Search" name="search" class="input input-bordered" /> -->
       <div class="input-group">
     <input type="text" placeholder="Search…" name="search" class="input input-bordered" />
     <button class="btn btn-square">
@@ -76,8 +75,8 @@ if (isset($_POST["clear_cart"]))
           ?>
         </div>
       </label>
-      <div tabindex="0" class="mt-3 card card-compact dropdown-content w-72 bg-base-100 shadow">
-        <div class="card-body ">
+      <div tabindex="0" class="mt-3 card card-compact dropdown-content w-max bg-base-100 shadow">
+        <div class="card-body">
         <?php 
           echo "<span class='font-bold text-lg'>",$count," Items</span>";
           $total=0;
@@ -90,13 +89,13 @@ foreach ($quantity as $key => $value)
     $result=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($result);
     $name=$row["pname"];;
-    echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'</h2><span class="badge badge-md ">',$value,'</span>&ensp;';  
+    echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';  
     $price=$row["price"];
     $price=(int)$price;
     $total+=$price;
     
 }
-echo "<span class='text-info'>Subtotal: ₹",$total,"</span>";
+echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
       ?>
           <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
