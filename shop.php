@@ -148,10 +148,10 @@ foreach($result as $row){
 
 echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-porcelain-500 m-5 shadow-xl'>
 <figure>
-<img src='products/$img' class='transition ease-in-out delay-150 duration-500 hover:rotate-12 z-1 hover:scale-125' height='200px' width='200px'>
+<img src='products/$img' class='transition ease-in-out delay-150 duration-500 hover:rotate-12 z-0 hover:scale-125' height='200px' width='200px'>
 </figure>
 <div class='card-body'>
-  <h2 class='card-title z-11'> ",$row['pname'],"</h2>
+  <h2 class='card-title z-20'> ",$row['pname'],"</h2>
   <p>   ₹ ",$row['price'],"</p>
   <div class='card-actions justify-end'>
   <form method='get'>

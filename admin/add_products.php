@@ -9,6 +9,8 @@ include("../include/admin_session.php");
   if (isset($_POST['upload'])) {
       // Get image name
       $image = $_FILES['image']['name'];
+      $image2 = $_FILES['image2']['name'];
+      $image3 = $_FILES['image3']['name'];
       // Get text
       $pn = mysqli_real_escape_string($conn,$_POST['pname']);
       $bn = mysqli_real_escape_string($conn,$_POST['bname']);
@@ -19,11 +21,14 @@ include("../include/admin_session.php");
      
       $target = $target_dir.basename($image);
 
-      $sql = "INSERT INTO `products`(`bname`,`pname`, `pdesc`, `price`, `offer`, `image`) VALUES ('$bn','$pn','$pd','$pr','$off','$image')";
+      $sql = "INSERT INTO `products`(`bname`,`pname`, `pdesc`, `price`, `offer`, `image`, `image2`, `image3`) VALUES ('$bn','$pn','$pd','$pr','$off','$image','$image2','$image3')";
       // execute query
       
 
-      if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+      if (move_uploaded_file($_FILES['image']['tmp_name'][1], $target)) 
+      {
+        move_uploaded_file($_FILES['image2']['tmp_name'][2], $target);
+        move_uploaded_file($_FILES['image3']['tmp_name'][3], $target);
         mysqli_query($conn, $sql);
         $status=1;
          
@@ -127,7 +132,11 @@ include("../include/admin_session.php");
             <input class="input input-bordered w-96 m-2" type="text" name="off" placeholder="discount percentage">
 <br>
             <input class="hidden" id="file-upload" type="file" name="image" value="shoe image">
-            <label for="file-upload" class="btn btn-accent m-2">Upload image</label> 
+            <label for="file-upload" class="btn btn-primary m-2" >Upload thumbnail</label> 
+            <input class="hidden" id="file-upload2" type="file" name="image2" value="shoe image">
+            <label for="file-upload2" class="btn btn-primary m-2" >Upload image 1</label> <br>
+            <input class="hidden" id="file-upload3" type="file" name="image3" value="shoe image">
+            <label for="file-upload3" class="btn btn-primary m-2" >Upload image 2</label> 
             <input type="submit" name="upload" class="btn btn-accent" value="submit">
    
         </form>
