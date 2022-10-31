@@ -1,30 +1,34 @@
 <?php
 include("include/connect.php");
+include("include/cart.php");
 $pid=$_GET['id'];
-
-if(!isset($_SESSION["cart"])) 
-{ 
-  $_SESSION["cart"]=array();
-  $_SESSION['count']=0;
-} 
-if(isset($_POST['ATC']))
-{
-    $pid=$_POST["ATC"];
-    $_SESSION["cart"][] = $pid;
-    $_SESSION['count']=count($_SESSION["cart"]);
-    //header("location:shop.php");
-}
-if (isset($_POST["clear_cart"]))
-{
-  $_SESSION["cart"]=array();
-  $_SESSION['count']=0;
-}
-?>
-<?php
 include("include/connect.php");
 $sql="SELECT * FROM products WHERE id='$pid'";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
+// if(isset($_POST['ATC']))
+// {
+//   $cid=$_POST["ATC"];
+//   $sql="SELECT * FROM cart WHERE user_id=$uid and product_id=$cid";
+//   $result = mysqli_query($conn, $sql);
+//   $count = mysqli_num_rows($result);
+//   if($count==0)
+//   {
+//   $sql="INSERT INTO `cart`(`user_id`, `product_id`) VALUES ('$uid','$cid')";
+//   mysqli_query($conn,$sql);
+
+//   }
+//   else
+//   {
+//     $sql="UPDATE cart set nos=nos+1 WHERE user_id=$uid AND product_id=$cid";
+//   mysqli_query($conn,$sql);
+//   $_SESSION['count']++;
+//   }
+
+//   header("location:product.php?id=$pid");
+//   //product.php?id=',$row['id'],'
+//   //echo '<script> window.location = "shop.php";</script>';
+// }
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -68,25 +72,27 @@ $row=mysqli_fetch_assoc($result);
           echo "<span class='font-bold text-lg'>",$_SESSION['count']," Items</span>";
           $total=0;
           $n=0;
-          $quantity=array_count_values($_SESSION['cart']);
-foreach ($quantity as $key => $value)
+foreach ($cart as $key => $value)
 {
   $n+=1;
    $sql="SELECT * FROM products WHERE id='$key'";
     $result=mysqli_query($conn,$sql);
-    $cartrow=mysqli_fetch_assoc($result);
-    $name=$cartrow["pname"];;
+    $row=mysqli_fetch_assoc($result);
+    $name=$row["pname"];
     echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';  
-    $price=$cartrow["price"];
+    $price=$row["price"];
     $price=(int)$price;
     $total+=$price;
     
-}
+}  
 echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
+$sql="SELECT * FROM products WHERE id='$pid'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
       ?>
           <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
-            <button class="btn btn-secondary btn-block" method="get" name="clear_cart">Clear cart</button>
+            <button class="btn btn-secondary btn-block"  name="clear_cart">Clear cart</button>
           </form>
         </div>
       </div>
@@ -133,10 +139,11 @@ echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
 <?php 
 echo "<div class=''>
 <form method='post'>
-  <button type='submit'  class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
+  <button type='submit' value='",$row['id'],"' class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
   </form>
-   <a hef='product.php?id=",$row['id'],"'><butt class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</butt on></a>
+   <a hef='product.php?id=",$row['id'],"'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</button></a>
   </div>";
+
   ?>
 </div>
 

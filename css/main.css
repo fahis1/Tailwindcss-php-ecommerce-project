@@ -3111,6 +3111,14 @@ body[dir="rtl"] .checkbox:checked,
   margin: 0.25rem;
 }
 
+.m-56 {
+  margin: 14rem;
+}
+
+.m-40 {
+  margin: 10rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -3178,6 +3186,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .mr-3 {
   margin-right: 0.75rem;
+}
+
+.block {
+  display: block;
 }
 
 .inline-block {
@@ -3276,14 +3288,14 @@ body[dir="rtl"] .checkbox:checked,
   width: auto;
 }
 
-.w-10\/12 {
-  width: 83.333333%;
-}
-
 .w-max {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-10\/12 {
+  width: 83.333333%;
 }
 
 .w-3\/4 {
@@ -3742,14 +3754,14 @@ body[dir="rtl"] .checkbox:checked,
   line-height: 1.25rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-4xl {
@@ -3901,15 +3913,6 @@ body[dir="rtl"] .checkbox:checked,
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.hover\:border-double:hover {
-  border-style: double;
-}
-
-.hover\:bg-sun-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 179 57 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {

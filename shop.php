@@ -1,23 +1,6 @@
-
 <?php
 include("include/connect.php");
-if(!isset($_SESSION["cart"])) 
-{ 
-  $_SESSION["cart"]=array();
-  $_SESSION['count']=0;
-} 
-if(isset($_GET['ATC']))
-{
-    $pid=$_GET["ATC"];
-    $_SESSION["cart"][] = $pid;
-    $_SESSION['count']=count($_SESSION["cart"]);
-    header("location:shop.php");
-}
-if (isset($_POST["clear_cart"]))
-{
-  $_SESSION["cart"]=array();
-  $_SESSION['count']=0;
-}
+include("include/cart.php");
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +41,7 @@ if (isset($_POST["clear_cart"]))
 
     <div class="form-control">
       <form action="" method="post">
-      <div class="input-group">
+        <div class="input-group">
     <input type="text" placeholder="Search…" name="search" class="input input-bordered" />
     <button class="btn btn-square">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -82,14 +65,13 @@ if (isset($_POST["clear_cart"]))
           echo "<span class='font-bold text-lg'>",$_SESSION['count']," Items</span>";
           $total=0;
           $n=0;
-          $quantity=array_count_values($_SESSION['cart']);
-foreach ($quantity as $key => $value)
+foreach ($cart as $key => $value)
 {
   $n+=1;
    $sql="SELECT * FROM products WHERE id='$key'";
     $result=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($result);
-    $name=$row["pname"];;
+    $name=$row["pname"];
     echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';  
     $price=$row["price"];
     $price=(int)$price;
@@ -100,7 +82,7 @@ echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
       ?>
           <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
-            <button class="btn btn-secondary btn-block" method="get" name="clear_cart">Clear cart</button>
+            <button class="btn btn-secondary btn-block" name="clear_cart">Clear cart</button>
           </form>
         </div>
       </div>
@@ -129,7 +111,7 @@ echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
 <?php 
 include("include/connect.php");
 
-if (isset($_POST["search"]))
+if (isset($_POST["search"]))//search block
 {
   $srch=$_POST["search"];
 $sql="SELECT * FROM products where pname like '%$srch%'";
@@ -140,7 +122,7 @@ $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
 
 echo "<div class='bg-sun-300 flex flex-wrap  justify-center flex-row'>";
-foreach($result as $row){
+foreach($result as $row){//display product cards
     $img=$row["image"];
 
 // echo $row["bname"] ,"  ",$row["pname"]," <img src='products/$img' height='200px' width='200px'>";
@@ -154,13 +136,33 @@ echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-
   <h2 class='card-title z-20'> ",$row['pname'],"</h2>
   <p>   ₹ ",$row['price'],"</p>
   <div class='card-actions justify-end'>
-  <form method='get'>
+  <form method='POST'>
   <button type='submit' value='",$row['id'],"'  class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
   </form>
   <a href='product.php?id=",$row['id'],"'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</button></a>
   </div>
 </div>
 </div>";
+}
+if(isset($_POST['ATC']))//cart system
+{
+  $cid=$_POST["ATC"];
+  $sql="SELECT * FROM cart WHERE user_id=$uid and product_id=$cid";
+  $result = mysqli_query($conn, $sql);
+  $count = mysqli_num_rows($result);
+  if($count==0)
+  {
+  $sql="INSERT INTO `cart`(`user_id`, `product_id`) VALUES ('$uid','$cid')";
+  mysqli_query($conn,$sql);
+  $_SESSION['count']++;
+  }
+  else
+  {
+    $sql="UPDATE cart set nos=nos+1 WHERE user_id=$uid AND product_id=$cid";
+  mysqli_query($conn,$sql);
+  $_SESSION['count']++;
+  }
+  echo '<script> window.location = "shop.php";</script>';
 }
 echo "</div>";
 ?>
