@@ -2,33 +2,9 @@
 include("include/connect.php");
 include("include/cart.php");
 $pid=$_GET['id'];
-include("include/connect.php");
 $sql="SELECT * FROM products WHERE id='$pid'";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
-// if(isset($_POST['ATC']))
-// {
-//   $cid=$_POST["ATC"];
-//   $sql="SELECT * FROM cart WHERE user_id=$uid and product_id=$cid";
-//   $result = mysqli_query($conn, $sql);
-//   $count = mysqli_num_rows($result);
-//   if($count==0)
-//   {
-//   $sql="INSERT INTO `cart`(`user_id`, `product_id`) VALUES ('$uid','$cid')";
-//   mysqli_query($conn,$sql);
-
-//   }
-//   else
-//   {
-//     $sql="UPDATE cart set nos=nos+1 WHERE user_id=$uid AND product_id=$cid";
-//   mysqli_query($conn,$sql);
-//   $_SESSION['count']++;
-//   }
-
-//   header("location:product.php?id=$pid");
-//   //product.php?id=',$row['id'],'
-//   //echo '<script> window.location = "shop.php";</script>';
-// }
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -86,7 +62,7 @@ foreach ($cart as $key => $value)
     
 }  
 echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
-$sql="SELECT * FROM products WHERE id='$pid'";
+$sql="SELECT * FROM products WHERE id='$pid '";
     $result=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($result);
       ?>
@@ -139,9 +115,9 @@ $sql="SELECT * FROM products WHERE id='$pid'";
 <?php 
 echo "<div class=''>
 <form method='post'>
-  <button type='submit' value='",$row['id'],"' class='btn btn-secondary  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
+  <button type='submit' value='",$row['id'],"' class='btn btn-secondary pb-3  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
   </form>
-   <a hef='product.php?id=",$row['id'],"'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>Buy Now</button></a>
+   <a href='order.php?id=$pid'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>CHECKOUT</button></a>
   </div>";
 
   ?>

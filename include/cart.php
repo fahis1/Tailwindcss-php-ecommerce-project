@@ -1,5 +1,6 @@
 <?php
 $uid=$_SESSION["uid"];
+
 $result = mysqli_query($conn,"SELECT SUM(nos) from cart where user_id=$uid");
 $tnos=mysqli_fetch_row($result);
 if($tnos[0]==NULL)
@@ -21,12 +22,11 @@ $cart[$row['product_id']] = $row['nos'];
 }
   $_SESSION['count'];
 } 
-
+$_SESSION['$cart']=$cart;
 if (isset($_POST["clear_cart"]))
 {
   $sql="DELETE FROM cart where user_id='$uid'";
   mysqli_query($conn,$sql);
-  $_SESSION['count']=0;
   $cart=array();
 }
 ?>

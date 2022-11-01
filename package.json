@@ -22,7 +22,7 @@
     "color-string": "^1.9.1",
     "css-selector-tokenizer": "^0.8.0",
     "cssesc": "^3.0.0",
-    "daisyui": "^2.36.1",
+    "daisyui": "^2.37.0",
     "defined": "^1.0.0",
     "detective": "^5.2.1",
     "didyoumean": "^1.2.2",
@@ -77,7 +77,7 @@
     "yaml": "^1.10.2"
   },
   "devDependencies": {
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.2.1"
   },
   "scripts": {
     "build": "tailwindcss -i ./input.css -o ./css/main.css",

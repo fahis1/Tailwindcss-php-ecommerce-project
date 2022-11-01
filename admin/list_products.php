@@ -158,10 +158,11 @@ echo "    </tbody>
     <label for="my-drawer" class="drawer-overlay"></label>
     <ul class="menu p-4 overflow-y-auto w-80 bg-dblue-200 text-white">
       <!-- Sidebar content here -->
-      <li><a href="add_products.php">add products</a></li>
-      <li><a href="list_products.php">View products</a></li>
-      <li><a href="list_users.php">Users</a></li>
-      
+      <li><a href="dashboard.php">DASHBOARD</a></li>
+      <li><a href="add_products.php">ADD PRODUCTS</a></li>
+      <li><a href="list_products.php">PRODUCTS</a></li>
+      <li><a href="list_users.php">USERS</a></li>
+      <li><a href="orders.php">ORDERS</a></li>
     </ul>
   </div>
 </div>
