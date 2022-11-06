@@ -43,72 +43,129 @@ include("../include/admin_session.php");
     </div>
 </div>
 
-<div class=" bg-mercury-500 rounded-lg m-2 p-2 flex flex-wrap sticky z-10">
-<div class="navbar">
 
 
-<div class="flex-1 gap-1">
-<button class="btn bg-dblue-500 text-white"><a href="add_products.php"><h2>Add new product +</h2></a></button>
-<label for='edit' class='btn bg-dblue-500 text-white modal-button'>Edit Product</label>
-<label for='delete' class='btn bg-dblue-500 text-white modal-button'>Delete product</label>
-</div>
-<div class="flex-none gap-2">
-  <form action="" method="POST">
-        <div class=" input-group">
-        <input type="text" placeholder="Search…" name="Search" class="input input-bordered" />
-        <button class="btn btn-square bg-dblue-500 " name="Sbtn">
-        <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-        </button>
-</div>
-  </form>
-</div>
-
-</div>
-</div>
-
-<div class=" bg-mercury-500 rounded-lg max-w-5 m-2 p-2">
+<div class=" bg-mercury-500 rounded-lg max-w-5 m-2">
 
 <!-- Page content here -->
-<?php 
-include("../include/connect.php");
-$sql="SELECT * FROM orders";
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_assoc($result);
-echo "<div class='overflow-x-auto'>
-<table class='table table-zebra w-full'>
-  <!-- head -->
-  <thead class='text-center'>
-    <tr>
-      <th>ORDER ID</th>
-      <th>USER ID</th>
-      <th>STATUS</th>
-      <th>ADDRESS</th>
-      <th>ORDER TIME</th>
-      <th>PRODUCTS</th>
-      <th></th>
-    </tr>
-  </thead>";
-foreach ($result as $row) {
-  $pid=$row["order_id"];
-    echo 
-    "<tbody class='text-center'>
-      <tr class='hover'>
-        <th>",$row["order_id"],"</th>
-        <td>",$row["user_id"],"</td>
-        <td>",$row["status"],"</td>
-        <td>",$row["address"],"</td>
-        <td>",$row["order_time"],"</td>
-        <td>",$row["products"],"</td>
-        <td><label for='admin' class='btn btn-secondary mr-3' name='admin'>UPDATE STATUS</label><label for='my-modal' class='btn modal-button'>CANCEL</label>
-        </td>
-      </tr>
-      ";
-}
-echo "    </tbody>
-</table>
+<div class='overflow-x-auto flex flex-col p-3'>
+<div class="stats shadow p-3 m-4">
+  
+  <div class="stat ">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+    </div>
+    <div class="stat-title">Total Likes</div>
+    <div class="stat-value text-primary">25.6K</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-secondary">2.6M</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <div class="avatar online">
+        <div class="w-16 rounded-full">
+          <img src="https://placeimg.com/128/128/people" />
+        </div>
+      </div>
+    </div>
+    <div class="stat-value">86%</div>
+    <div class="stat-title">Tasks done</div>
+    <div class="stat-desc text-secondary">31 tasks remaining</div>
+  </div>
+  
 </div>
-</div>";
-?>
+
+<div class="stats shadow p-3 m-4">
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </div>
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+    </div>
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↘︎ 90 (14%)</div>
+  </div>
+  
+</div>
+
+<div class="flex-row ">
+
+<div class="stats bg-primary text-primary-content p-3 m-4">
+
+  
+  <div class="stat">
+    <div class="stat-title">Account balance</div>
+    <div class="stat-value">$89,400</div>
+    <div class="stat-actions">
+      <button class="btn btn-sm btn-success">Add funds</button>
+    </div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-title">Current balance</div>
+    <div class="stat-value">$89,400</div>
+    <div class="stat-actions">
+      <button class="btn btn-sm">Withdrawal</button> 
+      <button class="btn btn-sm">deposit</button>
+    </div>
+  </div>
+  
+
+</div>
+
+<div class="stats shadow p-3 m-4 w-1/2">
+  
+  <div class="stat place-items-center">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">From January 1st to February 1st</div>
+  </div>
+  
+  <div class="stat place-items-center">
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">4,200</div>
+    <div class="stat-desc text-secondary">↗︎ 40 (2%)</div>
+  </div>
+  
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↘︎ 90 (14%)</div>
+  </div>
+  
+</div>
+
+</div>
+
+</div>
+</div>
   </div>  
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
@@ -122,33 +179,7 @@ echo "    </tbody>
     </ul>
   </div>
 </div>
-<input type='checkbox' id='my-modal' class='modal-toggle' />
-      <div class='modal'>
-      <div class='modal-box '>
-        <h3 class='font-bold text-lg '>Are you sure!</h3>
-        <p class='py-4'>Once you delete a user account you can not get the data back!</p>
-        <div class='modal-action items-center flex flex-col justify-center'>
-          <form action='' method='post'>
-          <input class='input input-bordered mb-3 w-full max-w-xs' type='number' name='id' placeholder="Confirm account id"><br>
-          <label for='my-modal' class='btn mt-1  mr-20'>Cancel</label><button class='btn mt-1 ml-12s' type='submit' name='del'>Delete</button>
-        </form>
-        </div>
-      </div>
-    </div>
 
-    <input type='checkbox' id='admin' class='modal-toggle' />
-      <div class='modal'>
-      <div class='modal-box '>
-        <h3 class='font-bold text-lg '>Are you sure!</h3>
-        <p class='py-4'>Admins can access the admin dashboard and will not have any restriction !</p>
-        <div class='modal-action items-center flex flex-col justify-center'>
-          <form action='' method='post'>
-          <input class='input input-bordered mb-3 w-full max-w-xs' type='number' name='id' placeholder="Confirm account id"><br>
-          <label for='admin' class='btn mt-1  mr-20'>Cancel</label><button class='btn mt-1 ml-12s' type='submit' name='admin'>continue</button>
-        </form>
-        </div>
-      </div>
-    </div>
 
 </body>
 </html>

@@ -70,7 +70,7 @@ include("include/connect.php");
 
   </div>
   <div class="main flex flex-row pt-1 pr-5 pl-5">
-    <div class=" bg-porcelain-100 rounded-2xl w-3/4 m-4 p-5">
+    <div class=" bg-sun-50 rounded-2xl w-3/4 m-4 p-5">
       <span class=" text-2xl font-medium text-sun-500">Select a payment method</span><br><br>
       <div class="border-2 ml-auto mr-auto border-slate-50 rounded-2xl p-3 bg-porcelain-100">
         <span class=" text-xl font-bold">Payment method</span><br>
@@ -90,7 +90,7 @@ include("include/connect.php");
         </form>
       </div>
     </div>
-    <div class=" bg-porcelain-100 rounded-2xl w-1/4 m-4 p-5 ">
+    <div class=" bg-sun-50 rounded-2xl w-1/4 m-4 p-5 ">
       <span class=" text-xl font-medium ">Order Summary</span><br><br>
       <p>product:</p><br>
       <p>items:</p><br>

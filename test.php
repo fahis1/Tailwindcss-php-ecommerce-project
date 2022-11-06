@@ -1,53 +1,34 @@
-<?php
-include('include/connect.php');
-$uid=$_SESSION['uid'];
-echo '<br>';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // collect value of input field
-  $name = $_REQUEST['fname'];
-  if (empty($name)) {
-    echo 'Name is empty';
-  } else {
-    echo $name;
-  }
-}
-$cart=array();
-echo '<br>';
-echo'<br>', $_SESSION['count'];
-echo '<br>';
-echo $uid;
-echo '<br>';
-// $sql='SELECT * FROM CART where user_id=$uid';
-// $result=mysqli_query($conn,$sql);
-// $row=mysqli_fetch_assoc($result);
-$sql='SELECT nos,product_id FROM CART where user_id=$uid';
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_assoc($result);
-$nos=array();
-foreach($result as $row)
-{
-$cart[$row['product_id']] = $row['nos'];
 
-}
-print_r($cart);
-echo '<br>';
-//$result = mysqli_query($conn,'SELECT SUM(nos) fro m cart where user_id=$uid');
-$tnos=mysqli_fetch_row($result);
-echo $tnos[0],'<br>';
-//print_r($tnos);
-$time=getdate();
+<html>
+  <head>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
 
-$_SESSION['$products']=json_encode($cart);
-//print_r($_SESSION['$products']);
-print_r($cart);
-$cnt=count($cart);
-echo $cnt;
-//echo $time,'<br>';
-?>
 
-<select name='status' class='select select-primary w-full max-w-xs'>
-   <input hidden type='number' name='id' value=',$row["order_id"],'><br>
-    <option disabled selected>UPDATE ORDER STATUS</option>
-    <option value='0'>ORDER PLACED</option>
-    <option value='1'>IN TRANSIT</option>
-    <option value='2'>DELIVERED</option>
+    ul li ul.dropdown{
+
+        display: none;
+
+    }
+    ul li:hover ul.dropdown{
+        display: block;	/* Display the dropdown */
+    }
+
+</style>
+  </head>
+</body>
+<ul class=" hover:text-sun-500">
+    <form action="" method="POST">
+    <li><input type="submit" value="ORDER STATUS" name="os" class="btn btn-ghost">
+  
+  </li>
+    <li><a>Item 2</a>
+    <ul class="dropdown">
+                <li><a href="#">Laptops</a></li>
+                <li><a href="#">Monitors</a></li>
+                <li><a href="#">Printers</a></li>
+            </ul></li>
+    </form>
+  </ul>
+</body>
+</html>

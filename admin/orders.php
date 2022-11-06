@@ -1,12 +1,26 @@
 <?php
 include("../include/connect.php");
 include("../include/admin_session.php");
-  
+$total=0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <style>
+    ul li ul.dropdown1{
+        min-width: 100%; /* Set width of the dropdown */
+        background: #f2f2f2;
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0   ;
+    }
+    ul li:hover ul.dropdown1{
+        display: block;	/* Display the dropdown */
+    }
+    ul li ul.dropdown1 li{
+        display: block;
+    }
       *{
         font-family: 'Inter', sans-serif;
       }
@@ -50,7 +64,21 @@ include("../include/admin_session.php");
 
 <div class="flex-1 gap-1">
 <button class="btn bg-dblue-500 text-white"><a href="add_products.php"><h2>Add new product +</h2></a></button>
-<label for='edit' class='btn bg-dblue-500 text-white modal-button'>Edit Product</label>
+<div class="dropdown">
+  <label tabindex="0" class="btn m-1 bg-dblue-500 text-white">SORT BY</label>
+  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+    <form action="" method="POST">
+    <li><input type="submit" value="ORDER STATUS" name="os" class="btn btn-ghost">
+    <ul class="dropdown1">
+                <li><a href="#">Laptops</a></li>
+                <li><a href="#">Monitors</a></li>
+                <li><a href="#">Printers</a></li>
+            </ul>
+  </li>
+    <li><a>Item 2</a></li>
+    </form>
+  </ul>
+</div>
 <label for='delete' class='btn bg-dblue-500 text-white modal-button'>Delete product</label>
 </div>
 <div class="flex-none gap-2">
@@ -71,7 +99,86 @@ include("../include/admin_session.php");
 
 <!-- Page content here -->
 <?php 
-include("../include/connect.php");
+if(isset($_POST["os"]))
+{
+  $sql="SELECT * FROM orders WHERE STATUS=$status";
+$result=mysqli_query($conn,$sql);
+$row=mysqli_fetch_assoc($result);
+echo "<div class='overflow-x-auto'>
+<table class='table table-zebra w-full'>
+  <!-- head -->
+  <thead class='text-center'>
+    <tr>
+      <th>ORDER ID</th>
+      <th>USER ID</th>
+      <th>STATUS</th>
+      <th>ADDRESS</th>
+      <th>ORDER TIME</th>
+      <th>PRODUCTS</th>
+      <th></th>
+    </tr>
+  </thead>";
+foreach ($result as $row) {
+  if($row["status"]==0)
+  $sts="ORDER PLACED";
+  elseif($row["status"]==1)
+  $sts="ORDER SHIPPED";
+  elseif($row["status"]==2)
+  $sts="DELIVERED SUCCESSFULLY";
+  elseif($row["status"]==3)
+  $sts="ORDER CANCELLED";
+    $pid=$row["order_id"];
+    $products=json_decode($row["products"]);
+    
+
+    echo 
+    "<tbody class='text-center'>
+      <tr class='hover'>
+        <td>",$row["order_id"],"</td>
+        <td>",$row["user_id"],"</td>
+        <td>",$sts,"</td>
+        <td>",$row["address"],"</td>
+        <td>",$row["order_time"],"</td>
+        <td class=' text-start'>";
+        foreach ($products as $key => $value)
+        {
+        
+            $sql="SELECT * FROM products WHERE id='$key'";
+            $result=mysqli_query($conn,$sql);
+            $row1=mysqli_fetch_assoc($result);
+            $name=$row1["pname"];  
+            $price=$row1["price"];
+            $price=(int)$price;
+            $total+=$price;
+            echo '<h2 class=" text-base text-dblue-300 truncate">',$key,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';
+        }
+
+
+       echo "Net Price: ₹",$total,'.00';
+        echo "</td>
+        <td>
+        <form action='' method='post'>
+        <input hidden type='number' name='id' value=",$pid,">
+<select name='status' class='select select-primary mb-3 w-full max-w-xs'>
+  <option disabled selected>SELECT</option>
+  <option value='0'>ORDER PLACED</option>
+  <option value='1'>IN TRANSIT</option>
+  <option value='2'>DELIVERED</option> 
+  <option value='3'>CANCEL</option>
+      </select><br>
+        <button class='btn mt-1 ml-12s' type='submit' name='admin'>UPDATE</button>    
+        </form> 
+        </td>
+      </tr>
+      ";
+}
+echo "    </tbody>
+</table>
+</div>
+</div>";
+}
+else
+{
 $sql="SELECT * FROM orders";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
@@ -90,43 +197,55 @@ echo "<div class='overflow-x-auto'>
     </tr>
   </thead>";
 foreach ($result as $row) {
-    echo "
-    <input type='checkbox' id='admin' class='modal-toggle' />
-    <div class='modal'>
-    <div class='modal-box relative'>
-    <label for='admin' class='btn btn-circle absolute'>✕</label>
-      <p class='py-4 font-bold'> &emsp; &emsp; &emsp; &emsp;UPDATE ORDER STATUS</p>
-      <div class='modal-action items-center flex flex-col justify-center'>
-        <form action='' method='post'>
-        <input hidden type='number' name='id' value=",$row["order_id"],">
- <select name='status' class='select select-primary mb-3 w-full max-w-xs'>
-  <option value='0'>ORDER PLACED</option>
-  <option value='1'>IN TRANSIT</option>
-  <option value='2'>DELIVERED</option> 
-  <option value='3'>CANCEL</option>
-      </select>
-        <button class='btn mt-1 ml-12s' type='submit' name='admin'>UPDATE</button>    
-        </form>  
-        ";
-    if($row["status"]==0)
-    $sts="ORDER PLACED";
-    elseif($row["status"]==1)
-    $sts="ORDER SHIPPED";
-    elseif($row["status"]==2)
-    $sts="DELIVERED SUCCESSFULLY";
-    elseif($row["status"]==3)
-    $sts="ORDER CANCELLED";
-  $pid=$row["order_id"];
+  if($row["status"]==0)
+  $sts="ORDER PLACED";
+  elseif($row["status"]==1)
+  $sts="ORDER SHIPPED";
+  elseif($row["status"]==2)
+  $sts="DELIVERED SUCCESSFULLY";
+  elseif($row["status"]==3)
+  $sts="ORDER CANCELLED";
+    $pid=$row["order_id"];
+    $products=json_decode($row["products"]);
+    
+
     echo 
     "<tbody class='text-center'>
       <tr class='hover'>
-        <th>",$row["order_id"],"</th>
+        <td>",$row["order_id"],"</td>
         <td>",$row["user_id"],"</td>
         <td>",$sts,"</td>
         <td>",$row["address"],"</td>
         <td>",$row["order_time"],"</td>
-        <td>",$row["products"],"</td>
-        <td><label for='admin' class='btn btn-secondary mr-3' name='admin'>UPDATE STATUS</label>
+        <td class=' text-start'>";
+        foreach ($products as $key => $value)
+        {
+        
+            $sql="SELECT * FROM products WHERE id='$key'";
+            $result=mysqli_query($conn,$sql);
+            $row1=mysqli_fetch_assoc($result);
+            $name=$row1["pname"];  
+            $price=$row1["price"];
+            $price=(int)$price;
+            $total+=$price;
+            echo '<h2 class=" text-base text-dblue-300 truncate">',$key,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';
+        }
+
+
+       echo "Net Price: ₹",$total,'.00';
+        echo "</td>
+        <td>
+        <form action='' method='post'>
+        <input hidden type='number' name='id' value=",$pid,">
+<select name='status' class='select select-primary mb-3 w-full max-w-xs'>
+  <option disabled selected>SELECT</option>
+  <option value='0'>ORDER PLACED</option>
+  <option value='1'>IN TRANSIT</option>
+  <option value='2'>DELIVERED</option> 
+  <option value='3'>CANCEL</option>
+      </select><br>
+        <button class='btn mt-1 ml-12s' type='submit' name='admin'>UPDATE</button>    
+        </form> 
         </td>
       </tr>
       ";
@@ -135,6 +254,7 @@ echo "    </tbody>
 </table>
 </div>
 </div>";
+}
 ?>
   </div>  
   <div class="drawer-side">
@@ -159,7 +279,6 @@ echo "    </tbody>
 if (isset($_POST["admin"]))
 {
   $id=$_POST['id'];
-  echo $id;
   $stat=$_POST['status'];
   $sql="UPDATE orders SET status='$stat' where order_id='$id'";
   if(mysqli_query($conn,$sql))
