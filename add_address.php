@@ -1,5 +1,6 @@
 <?php
 include("include/connect.php");
+$uid = $_SESSION['uid'];
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -114,8 +115,8 @@ include("include/connect.php");
         $building_name = $_POST['building_name'];
         $landmark = $_POST['landmark'];
 
-        $sql = "insert into address (name,number,pincode,city,state,area,building_name,landmark) 
-      values ('$name','$number','$pincode','$city','$state','$area','$building_name','$landmark')";
+        $sql = "insert into address (user_id,name,number,pincode,city,state,area,building_name,landmark) 
+      values ('$uid','$name','$number','$pincode','$city','$state','$area','$building_name','$landmark')";
         if (mysqli_query($conn, $sql)) {
             echo '<script> setTimeout(function() { window.location = "add_address1.php"; }, 2000); </script>';
             echo "<div class='alert alert-success shadow-lg absolute top-3 z-15'>
