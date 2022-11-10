@@ -162,7 +162,9 @@ $oid=$_GET['oid'];
           
                  echo "<div class='flex justify-between'>
                  <span>
-                 <button class='ml-8 btn btn-outline btn-accent'>Cancel order</button>
+                 <form action='' method='post'>
+                 <button name='cancel' class='ml-8 btn btn-outline btn-accent'>Cancel order</button>
+                 </form>
                  </span>
                  <span class='text-3xl flex font-bold mr-8'>Net Price: ₹",$total,'.00</span>
                  </div>';
@@ -176,7 +178,16 @@ $oid=$_GET['oid'];
     </div>
 
     <?php
-    
+if(isset($_POST["cancel"]))
+{
+    $sql="DELETE FROM orders WHERE order_id=$oid;";
+    mysqli_query($conn,$sql);
+    echo "<script>
+    setTimeout(function(){
+          window.location.href = 'list_user_orders.php';
+       }, 500);
+  </script>";
+}
     ?>
 </body>
 

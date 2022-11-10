@@ -81,7 +81,7 @@ foreach ($cart as $key => $value)
 echo "<span class=' text-base'><b>Subtotal:</b> <span class=''>₹",$total,"</span></span>";
       ?>
           <form method="post" class="card-actions">
-            <button class="btn btn-primary btn-block">View cart</button>
+            <button class="btn btn-primary btn-block" name="checkout">Checkout</button>
             <button class="btn btn-secondary btn-block" name="clear_cart">Clear cart</button>
           </form>
         </div>

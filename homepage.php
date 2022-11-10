@@ -27,8 +27,8 @@ background-size: cover;
 <div class="hero-overlay bg-opacity-60"><!-- div not closed -->
 <div class="navbar flex justify-between flex-row bg-sun-50 h-16 rounded-full mt-2 m-2 top-2 sticky w-auto
  z-50">
-  <div class="flex-1">
-    <a href="homepage.php" class="btn btn-ghost normal-case text-xl"><a href="admin/add_products.php"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
+ <div class="flex-1">
+    <a href="admin/dashboard.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="flex-none gap-2">
     <div class="form-control">
@@ -67,7 +67,7 @@ foreach ($cart as $key => $value)
 echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
       ?>
           <form method="post" class="card-actions">
-            <button class="btn btn-primary btn-block">View cart</button>
+            <button class="btn btn-primary btn-block"  name="checkout">Checkout</button>
             <button class="btn btn-secondary btn-block" name="clear_cart">Clear cart</button>
           </form>
         </div>
@@ -112,6 +112,10 @@ if (isset($_POST["clear_cart"]))
   $sql="DELETE FROM cart where user_id='$uid'";
   mysqli_query($conn,$sql);
   $_SESSION['count']=0;
+}
+if (isset($_POST["checkout"]))
+{
+header("Location:payment.php");
 }
 ?>
 </body>

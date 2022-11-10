@@ -67,7 +67,7 @@ $sql="SELECT * FROM products WHERE id='$pid '";
     $row=mysqli_fetch_assoc($result);
       ?>
           <form method="post" class="card-actions">
-            <button class="btn btn-primary btn-block">View cart</button>
+          <button class="btn btn-primary btn-block" name="checkout">Checkout</button>
             <button class="btn btn-secondary btn-block"  name="clear_cart">Clear cart</button>
           </form>
         </div>

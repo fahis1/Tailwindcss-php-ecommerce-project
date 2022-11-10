@@ -29,4 +29,8 @@ if (isset($_POST["clear_cart"]))
   mysqli_query($conn,$sql);
   $cart=array();
 }
+if (isset($_POST["checkout"]))
+{
+header("Location:payment.php");
+}
 ?>
