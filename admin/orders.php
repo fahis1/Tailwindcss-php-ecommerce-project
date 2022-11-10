@@ -220,14 +220,14 @@ foreach ($result as $row) {
         <td class=' text-start'>";
         foreach ($products as $key => $value)
         {
-        
+            // $total=0;
             $sql="SELECT * FROM products WHERE id='$key'";
             $result=mysqli_query($conn,$sql);
             $row1=mysqli_fetch_assoc($result);
             $name=$row1["pname"];  
             $price=$row1["price"];
             $price=(int)$price;
-            $total+=$price;
+            $total+=$price*$value;
             echo '<h2 class=" text-base text-dblue-300 truncate">',$key,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';
         }
 

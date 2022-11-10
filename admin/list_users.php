@@ -92,7 +92,7 @@ foreach ($result as $row) {
     "<tbody class='text-center'>
       <tr class='hover'>
         <th>",$row["id"],"</th>
-        <td>",$row["name"],"</td>
+        <td>",$row["user_name"],"</td>
         <td>",$row["email"],"</td>
         <td>",$row["admin"],"</td>
         <td><label for='admin' class='btn btn-secondary mr-3' name='admin'>Make admin</label><label for='my-modal' class='btn modal-button'>Delete</label>

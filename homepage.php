@@ -83,14 +83,11 @@ echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-        <li>
-          <a class="justify-between" href="test.php">
-            Profile
-            <span class="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
+        <li><a href="profile.php">Profile</a></li>
+        <li><a href="feedback.php">Feedback</a></li>
+        <li><a href="list_user_orders.php">Orders</a></li>
         <li><a href="include/logout.php">Logout</a></li>
+
       </ul>
     </div>
   </div>

@@ -2,6 +2,7 @@
 include("include/connect.php");
 include("include/session.php");
 $uid=$_SESSION["uid"];
+$oid=$_GET['oid'];
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -15,7 +16,7 @@ $uid=$_SESSION["uid"];
     <link rel="stylesheet" href="css/main.css">
     <script>
         function redirect(oid) {
-            window.location.href = "user_order.php?oid="+oid;
+            window.location.href = "user_order?oid="+oid;
 }
     </script>
 </head>
@@ -71,49 +72,63 @@ $uid=$_SESSION["uid"];
             </div>
         </div>
     </div>
-    <div id="container" class="main flex flex-row pt-1 pr-5 pl-5 mt-1">
+    <div id="container" class="main flex flex-row pt-1 pr-5 pl-5 mt-1 max-h-full">
+    <div class=" bg-porcelain-500 rounded-2xl w-1/4 m-4 p-5 h-full top-24 h-full sticky">
+        <?php
+        $sql="SELECT * FROM orders where order_id=$oid";
+        $result=mysqli_query($conn,$sql);
+        $row=mysqli_fetch_assoc($result);
+       
+        foreach ($result as $row) {
+          if($row["status"]==0)
+          {echo "<ul class='steps steps-vertical'>
+            <li class='step step-primary'>Order placed</li>
+            <li class='step'>Order shipped</li>
+            <li class='step'>Out for delivery</li>
+            <li class='step'>Order delivered</li>
+              </ul>";}
+
+          elseif($row["status"]==1)
+          {echo "<ul class='steps steps-vertical'>
+            <li class='step step-primary'>Order placed</li>
+            <li class='step step-primary'>Order shipped</li>
+            <li class='step'>Out for delivery</li>
+            <li class='step'>Order delivered</li>
+              </ul>";}
+   
+          elseif($row["status"]==2)
+          {echo "<ul class='steps steps-vertical'>
+            <li class='step step-primary'>Order placed</li>
+            <li class='step step-primary'>Order shipped</li>
+            <li class='step step-primary'>Out for delivery</li>
+            <li class='step step-primary'>Order delivered</li>
+              </ul>";}
+
+          elseif($row["status"]==3)
+          {echo "<ul class='steps steps-vertical'>
+            <li class='step step-error'>Order placed</li>
+            <li class='step step-error'>Order shipped</li>
+            <li class='step step-error'>Out for delivery</li>
+            <li class='step step-error'><b>Order is cancelled</b></li>
+              </ul>";}
+
+        }
+?>
+
+</div>
         <div class=" bg-porcelain-500 rounded-2xl w-full m-4  p-5">
           <?php
           $total=0;
-          $sql="SELECT * FROM orders where user_id=$uid";
+          $sql="SELECT * FROM orders where order_id=$oid";
           $result=mysqli_query($conn,$sql);
           $row=mysqli_fetch_assoc($result);
-          $count = mysqli_num_rows($result);
-          if($count>0)
-          {
-          echo "<div class='overflow-x-auto -z-15'>
-          <table class='table table-zebra w-full z-10'>
-            <!-- head -->
-            <thead class='text-center'>
-              <tr>
-                <th>ORDER ID</th>  
-                <th>STATUS</th>
-                <th>ADDRESS</th>
-                <th>ORDER TIME</th>
-                <th>PRODUCTS</th>
-              </tr>
-            </thead>";
+          echo"<center><h1 class='font-semibold underline text-2xl'>Order details</h1></center><br><br>";
+          echo"<h1 class=' font-medium text-xl'>Products:</h1>";
           foreach ($result as $row) {
-            if($row["status"]==0)
-            $sts="ORDER PLACED";
-            elseif($row["status"]==1)
-            $sts="ORDER SHIPPED";
-            elseif($row["status"]==2)
-            $sts="DELIVERED SUCCESSFULLY";
-            elseif($row["status"]==3)
-            $sts="ORDER CANCELLED";
               $pid=$row["order_id"];
               $products=json_decode($row["products"]);
               $oid=$row['order_id'];
 
-              echo 
-              "<tbody class='text-center'>
-                <tr class='hover' onclick='redirect($oid)'>
-                  <td>",$row["order_id"],"</td>
-                  <td>",$sts,"</td>
-                  <td>",$row["address"],"</td>
-                  <td>",$row["order_time"],"</td>
-                  <td class=' text-start'>";
                   foreach ($products as $key => $value)
                   {
                   
@@ -121,28 +136,41 @@ $uid=$_SESSION["uid"];
                       $result=mysqli_query($conn,$sql);
                       $row1=mysqli_fetch_assoc($result);
                       $name=$row1["pname"];  
+                      $img=$row1["image"];
                       $price=$row1["price"];
                       $price=(int)$price;
-                      $total+=$price;
-                      echo '<h2 class=" text-base text-dblue-300 truncate">.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';
-                  }
+                      $total+=$price*$value ;
+                      $unit_price=$price*$value;
+                      echo '<div class="m-6 p-6 flex flex-row border-2 border-dblue-500 bg-porcelain-500 rounded-2xl">
+<img src="products/'.$img.'" class="border-double  rounded-lg " height="180px" width="180px">
+<div class=" w-full">
+<h2 class=" text-4xl font-semibold text-dblue-300 truncate">
+    &ensp;&ensp;',strtoupper($name),'&ensp;&ensp;
+  </h2>
+  <h3 class=" ml-12 mt-3 text-xl text-dblue-300 truncate">
+  Quantity:&ensp;<span class="badge badge-md ">',$value,'</span>
+  </h3>
+    <div class="flex h-20 justify-end items-end">
+    <p class="flex justify-end items-end text-xl mr-5 font-bold">Net Unit Price:<p class=" text-3xl font-mono"> ₹ ',$unit_price,'.00</p></p>
+    </div>
+    </div> 
+</div>
+                      ';
+                    $unit_price=0;
+                    }
           
           
-                //  echo "Net Price: ₹",$total,'.00';
-                  echo "</td>   
-                </tr>
-    
-                ";
+                 echo "<div class='flex justify-between'>
+                 <span>
+                 <button class='ml-8 btn btn-outline btn-accent'>Cancel order</button>
+                 </span>
+                 <span class='text-3xl flex font-bold mr-8'>Net Price: ₹",$total,'.00</span>
+                 </div>';
           }
           echo "    </tbody>
           </table>
           </div>
           </div>";
-        }
-        else
-        {
-            echo"<center><h1 class='font-semibold  text-2xl'>NO ORDERS FOUND</h1></center>";
-        }
           ?>
         </div>
     </div>

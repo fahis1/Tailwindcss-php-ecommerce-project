@@ -75,10 +75,10 @@ foreach ($cart as $key => $value)
     echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';  
     $price=$row["price"];
     $price=(int)$price;
-    $total+=$price;
+    $total+=$price*$value;
     
 }
-echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
+echo "<span class=' text-base'><b>Subtotal:</b> <span class=''>₹",$total,"</span></span>";
       ?>
           <form method="post" class="card-actions">
             <button class="btn btn-primary btn-block">View cart</button>
@@ -94,13 +94,9 @@ echo "<span class='text-info text-base'>Subtotal: ₹",$total,"</span>";
         </div>
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a class="justify-between">
-            Profile
-            <span class="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
+      <li><a href="profile.php">Profile</a></li>
+        <li><a href="feedback.php">Feedback</a></li>
+        <li><a href="list_user_orders.php">Orders</a></li>
         <li><a href="include/logout.php">Logout</a></li>
       </ul>
     </div>

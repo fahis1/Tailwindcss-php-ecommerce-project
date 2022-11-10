@@ -71,14 +71,10 @@ $uid = $_SESSION['uid'];
                     </div>
                 </label>
                 <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <li>
-                        <a class="justify-between">
-                            Profile
-                            <span class="badge">New</span>
-                        </a>
-                    </li>
-                    <li><a>Settings</a></li>
-                    <li><a href="include/logout.php">Logout</a></li>
+                <li><a href="profile.php">Profile</a></li>
+        <li><a href="feedback.php">Feedback</a></li>
+        <li><a href="list_user_orders.php">Orders</a></li>
+        <li><a href="include/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -178,7 +174,7 @@ $uid = $_SESSION['uid'];
                             <hr> <br></a>";
                         }
                     }
-                    echo "<a href='add_address1.php'><button class='btn btn-warning btn-sm'>Add new address</button></a>";
+                    echo "<a href='add_address.php'><button class='btn btn-warning btn-sm'>Add new address</button></a>";
 
                     ?>
                 </div>
