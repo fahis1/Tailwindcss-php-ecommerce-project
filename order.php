@@ -2,7 +2,15 @@
 include("include/connect.php");
 include("include/session.php");
 $ocart=json_encode($_SESSION['$cart']);
-$pid=$_GET['id'];
+if(isset($_GET['id']))
+      {
+        $pid=$_GET['id'];
+        $ocart='{"'.$pid.'":"1"}';
+        $uid=$_SESSION["uid"];
+$sql = "INSERT INTO `orders` (`user_id`, `status`, `address`, `order_time`,`products`) VALUES ('$uid', '0', 'address test', NOW(),'$ocart');";
+mysqli_query($conn,$sql);
+      }
+      else{
 $uid=$_SESSION["uid"];
 $sql = "INSERT INTO `orders` (`user_id`, `status`, `address`, `order_time`,`products`) VALUES ('$uid', '0', 'address test', NOW(),'$ocart');";
 mysqli_query($conn,$sql);
@@ -10,6 +18,7 @@ $sql="DELETE FROM cart where user_id='$uid'";
   mysqli_query($conn,$sql);
   $cart=array();
   $_SESSION['$cart']=array();
+    }
 ?>
 <html>
     <head>

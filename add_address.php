@@ -1,6 +1,18 @@
 <?php
 include("include/connect.php");
 $uid = $_SESSION['uid'];
+$query = "SELECT * FROM address WHERE user_id='$uid'";
+$count=null;
+                    $result = mysqli_query($conn, $query);
+                    $count = mysqli_num_rows($result);
+                    if($count==0){
+                        $address=0;
+                    }
+                    else
+                    {
+                    $address=1;
+                    }
+                    
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -73,25 +85,25 @@ $uid = $_SESSION['uid'];
         <div class=" bg-porcelain-100 rounded-2xl w-full m-4  p-5">
             <form action="" method="POST">
                 <div>
-                    <span class="text-3xl font-medium w-full ">
+                    <span class="text-3xl font-bold w-full ">
                         <center> Add Address</center>
-                    </span>
+                    </span> 
                 </div>
                 <div class=" text-center mt-10">
-                    <span class="font-medium">
+                    <span class="font-medium underline">
                         <h3>Contact Info</h3>
                     </span>
-                    <input type="text" required name="name" placeholder="Name" class="input w-full max-w-xs m-2"><br>
-                    <input type="number" required min="1000000000" max="9999999999" name="number" placeholder="Number" class="input w-full max-w-xs m-2"><br><br>
+                    <input type="text" required name="name" placeholder="Name" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="number" required min="1000000000" max="9999999999" name="number" placeholder="Number" class="input w-full max-w-xs m-2 input-bordered"><br><br>
                     <h4 class="font-medium underline"> Address info </h4>
-                    <input type="text" required name="pincode" placeholder="Pincode" class="input w-full max-w-xs m-2"><br>
-                    <input type="text" required name="city" placeholder="City" class="input w-full max-w-xs m-2"><br>
-                    <input type="text" required name="state" placeholder="State" class="input w-full max-w-xs m-2"><br>
-                    <input type="text" required name="area" placeholder="Locality/Area/Street" class="input w-full max-w-xs m-2"><br>
-                    <input type="text" required name="building_name" placeholder="Flat no /Building Name" class="input w-full max-w-xs m-2"><br>
-                    <input type="text" name="landmark" placeholder="Landmark(optional)" class="input w-full max-w-xs m-2"><br>
-                    <span class="pr-52"><input type="checkbox" class="toggle" checked />
-                        <label>Make this my default address</label><br><br></span>
+                    <input type="text" required name="pincode" placeholder="Pincode" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="text" required name="city" placeholder="City" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="text" required name="state" placeholder="State" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="text" required name="area" placeholder="Locality/Area/Street" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="text" required name="building_name" placeholder="Flat no /Building Name" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="text" name="landmark" placeholder="Landmark(optional)" class="input w-full max-w-xs m-2 input-bordered"><br>
+                    <input type="checkbox" name="check"  class="checkbox checkbox-xs">
+                    <span>&nbsp;Make this default address</span><br><br>
                     <label class="font-medium">Address type</label><br><br>
                     <select class="select w-full max-w-xs">
                         <option disable selected>Select an Address Type</option>
@@ -105,36 +117,85 @@ $uid = $_SESSION['uid'];
     </div>
 
     <?php
-    if (isset($_POST['save'])) {
-        $name = $_POST['name'];
-        $number = $_POST['number'];
-        $pincode = $_POST['pincode'];
-        $city = $_POST['city'];
-        $state = $_POST['state'];
-        $area = $_POST['area'];
-        $building_name = $_POST['building_name'];
-        $landmark = $_POST['landmark'];
+    
+        if (isset($_POST['save'])) {
+            if (isset($_POST['check'])) {
+$query = "SELECT * FROM address WHERE user_id='$uid'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+foreach ($result as $row) {
+    $did = $row['id'];
+    $query = "UPDATE address SET type='0' where id='$did'";
+    mysqli_query($conn, $query);
+}
+            $name = $_POST['name'];
+            $number = $_POST['number'];
+            $pincode = $_POST['pincode'];
+            $city = $_POST['city'];
+            $state = $_POST['state'];
+            $area = $_POST['area'];
+            $building_name = $_POST['building_name'];
+            $landmark = $_POST['landmark'];
 
-        $sql = "insert into address (user_id,name,number,pincode,city,state,area,building_name,landmark) 
-      values ('$uid','$name','$number','$pincode','$city','$state','$area','$building_name','$landmark')";
-        if (mysqli_query($conn, $sql)) {
-            echo '<script> setTimeout(function() { window.location = "add_address1.php"; }, 2000); </script>';
-            echo "<div class='alert alert-success shadow-lg absolute top-3 z-15'>
+            $sql = "insert into address (user_id,name,number,pincode,city,state,area,building_name,landmark,type) 
+      values ('$uid','$name','$number','$pincode','$city','$state','$area','$building_name','$landmark',1)";
+            if (mysqli_query($conn, $sql)) {
+                echo '<script> setTimeout(function() { window.location = "add_address.php"; }, 2000); </script>';
+                echo "<div class='alert alert-success shadow-lg absolute top-3 z-15'>
             <div>
               <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
               <span>Address has been added succesfully!</span>
             </div>
           </div>";
-        } else {
-            header("Refresh:2");
-            echo "<div class='alert alert-error shadow-lg absolute top-20 z-15'>
+            } else {
+                header("Refresh:2");
+                echo "<div class='alert alert-error shadow-lg absolute top-20 z-15'>
             <div>
               <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
               <span>Erorr !</span>
             </div>
           </div>";
+            }
+        }
+        else
+        {
+            $name = $_POST['name'];
+            $number = $_POST['number'];
+            $pincode = $_POST['pincode'];
+            $city = $_POST['city'];
+            $state = $_POST['state'];
+            $area = $_POST['area'];
+            $building_name = $_POST['building_name'];
+            $landmark = $_POST['landmark'];
+            if($address==0){
+            $sql = "insert into address (user_id,name,number,pincode,city,state,area,building_name,landmark,type) 
+      values ('$uid','$name','$number','$pincode','$city','$state','$area','$building_name','$landmark',1)";
+            }
+            else
+            {
+                $sql = "insert into address (user_id,name,number,pincode,city,state,area,building_name,landmark,type) 
+                values ('$uid','$name','$number','$pincode','$city','$state','$area','$building_name','$landmark',0)";
+            }
+            if (mysqli_query($conn, $sql)) {
+                echo '<script> setTimeout(function() { window.location = "add_address.php"; }, 2000); </script>';
+                echo "<div class='alert alert-success shadow-lg absolute top-3 z-15'>
+            <div>
+              <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+              <span>Address has been added succesfully!</span>
+            </div>
+          </div>";
+            } else {
+                header("Refresh:2");
+                echo "<div class='alert alert-error shadow-lg absolute top-20 z-15'>
+            <div>
+              <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+              <span>Erorr !</span>
+            </div>
+          </div>";
+            }
         }
     }
+
     ?>
 </body>
 

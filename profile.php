@@ -1,6 +1,8 @@
 <?php
 include("include/connect.php");
+include("include/session.php");
 include("include/cart.php");
+
 $uid = $_SESSION['uid'];
 ?>
 <!DOCTYPE html>
@@ -75,7 +77,9 @@ $uid = $_SESSION['uid'];
     </div>
     <div id="container" class="main flex max-h-full flex-row pt-1 pr-5 pl-5 mt-1">
         <div class=" bg-porcelain-100 rounded-2xl w-2/4 h-full m-4 p-5">
+            
             <center>
+            <h1 class='font-bold underline text-2xl'>Update Profile</h1><br>
                 <div class="avatar ring-primary ring-offset-base-100">
 
                     <div class=" w-40 rounded-full">
@@ -89,14 +93,16 @@ $uid = $_SESSION['uid'];
                 $row = mysqli_fetch_assoc($result);
                 foreach ($result as $row) {
 
-                    echo "<form action='' method='POST'>
+
+                    echo "
+                    <form action='' method='POST'>
                     <input type='submit' name='sbt' value='CHANGE' class='btn btn-warning mt-4 -z-10'><br><br>
                     <span class='font-semibold'> Username:</span><input type='text' value='", $row['user_name'], "' name='uname' placeholder='first name' class='input w-full max-w-xs m-2 input-bordered'><br>
                     <span class='font-semibold'> First Name:</span><input type='text' value='", $row['first_name'], "' name='fname' placeholder='first name' class='input w-full max-w-xs m-2 input-bordered'><br>
                     <span class='font-semibold'>Last Name:</span><input type='text' value='", $row['last_name'], "' name='lname' placeholder='last name' class='input w-full max-w-xs m-2 input-bordered'><br>
                     <span class='font-semibold'> Mobile No:</span><input type='text' value='", $row['number'], "' name='num' placeholder='mobile no' class='input w-full max-w-xs m-2 input-bordered'><br>
-                    <span class='font-semibold'>Email:&ensp;&ensp;&ensp;&ensp;&ensp;</span><input type='text' value='", $row['email'], "' name='email' placeholder='Email' class='input w-full max-w-xs m-2 input-bordered'><br><br>
-                    <span class='btn btn-warning mt-4'><input type='submit' name='sbt' value='SAVE DETAILS'></span>
+                    <span class='font-semibold'>Email:&ensp;&ensp;&ensp;&ensp;&ensp;</span><input type='text' value='", $row['email'], "' name='email' placeholder='Email' class='input w-full max-w-xs m-2 input-bordered'><br>
+                    <span class='btn btn-warning mt-4'><input type='submit' name='sbt' value='UPDATE DETAILS'></span><br><br>
                 </form>";
                 }
                 if (isset($_POST["sbt"])) {
@@ -105,22 +111,60 @@ $uid = $_SESSION['uid'];
                     $lname = $_POST["lname"];
                     $num = $_POST["num"];
                     $email = $_POST["email"];
-                    $sql = "UPDATE acc set user_name='$uname',  first_name='$fname', last_name='$lname', email='$email', number='$num'";
+                    $sql = "UPDATE acc set user_name='$uname',  first_name='$fname', last_name='$lname', email='$email', number='$num' where id=$uid";
 
                     if (mysqli_query($conn, $sql)) {
                         echo '<script> setTimeout(function() { window.location = "profile.php"; }, 1000); </script>';
-                        echo "<div class='alert alert-success shadow-lg absolute top-3 z-10'>
+                        echo "<div class='alert alert-success left-3 w-fit shadow-lg absolute top-3 z-10'>
                         <div>
                           <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
                         <span>Profile updated</span>
                       </div>
                     </div>";
                     } else {
-                        header("Refresh:500");
-                        echo "<div class='alert alert-error shadow-lg absolute top-3 z-10'>
+                        
+                        echo "<div class='alert alert-error left-3 w-fit shadow-lg absolute top-3 z-10'>
                       <div>
                         <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
                         <span>Error</span>
+                      </div>
+                    </div>";
+                    echo '<script> setTimeout(function() { window.location = "profile.php"; }, 1000); </script>';
+                    }
+                }
+                echo "<div class=' bg-sun-50 rounded-2xl p-5'>
+                <h1 class='font-semibold underline text-xl'>Update Password</h1><br>
+                <form action='' method='POST'>
+                    <span class='font-semibold'>Enter existing password:</span><input type='password'  name='epass' placeholder='Existing password ' class='input w-full max-w-xs m-2 input-bordered'><br>
+                    <span class='font-semibold'>Enter new password:&ensp;&ensp;&ensp;</span><input type='password' name='npass' placeholder='New password' class='input w-full max-w-xs m-2 input-bordered'><br>
+                    <span class='btn btn-warning mt-4'><input type='submit' name='psbt' value='UPDATE PASSWORD'></span>
+                </form>
+                <div>";
+                if (isset($_POST["psbt"])) {
+                    $epass = $_POST["epass"];
+                    $npass = $_POST["npass"];
+                    $query = "SELECT * FROM acc WHERE id='$uid'";
+                    $result = mysqli_query($conn, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    $dpass= $row['password'];
+                    if($dpass==$epass){
+                    $sql = "UPDATE acc set password='$npass' where id=$uid";
+
+                    mysqli_query($conn, $sql);
+                        echo '<script> setTimeout(function() { window.location = "profile.php"; }, 1500); </script>';
+                        echo "<div class='alert alert-success shadow-lg absolute left-3 w-fit top-3 z-10'>
+                        <div>
+                          <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+                        <span>Password updated succesfully</span>
+                      </div>
+                    </div>";
+                    }
+                    else {
+                        echo '<script> setTimeout(function() { window.location = "profile.php"; }, 1500); </script>';
+                        echo "<div class='alert alert-error shadow-lg absolute left-3 w-fit top-3 z-10'>
+                      <div>
+                        <svg xmlns='http://www.w3.org/2000/svg' class='stroke-current flex-shrink-0 w-6 h-6 ' fill='none' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /></svg>
+                        <span>Incorrect Password entered</span>
                       </div>
                     </div>";
                     }
@@ -138,6 +182,9 @@ $uid = $_SESSION['uid'];
                     $query = "SELECT * FROM address WHERE user_id='$uid'";
                     $result = mysqli_query($conn, $query);
                     $row = mysqli_fetch_assoc($result);
+                    $count = mysqli_num_rows($result);
+                    if($count!=0)
+                {
                     foreach ($result as $row) {
                         if ($row['type'] == 1) {
 
@@ -168,8 +215,15 @@ $uid = $_SESSION['uid'];
                             <hr> <br></a>";
                         }
                     }
-                    echo "<a href='add_address.php'><button class='btn btn-warning btn-sm'>Add new address</button></a>";
-
+                }
+                else
+                {
+                    echo"<center><h1 class='font-extrabold  text-2xl'>NO ADDRESS FOUND</h1></center><br>";
+                }
+                    echo "<center><a href='add_address.php'><button class='btn btn-warning btn-sm'>Add new address</button></a></center>";
+                
+                
+                
                     ?>
                 </div>
 

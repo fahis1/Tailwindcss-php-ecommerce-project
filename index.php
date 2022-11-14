@@ -1,14 +1,13 @@
 <?php
 include('include/connect.php');
 if (isset($_POST['LIbtn'])) {
-  $userid = $_POST["fname"];
+  $userid = $_POST["uname"];
   $lpass = $_POST["lpass"];
   $sql = "select *from acc where user_name = '$userid' and password = '$lpass'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   $count = mysqli_num_rows($result);
-  $acc_type = $row["admin"];
-  if ($count == 1 && $acc_type == 1) {
+  if ($count == 1 && $row["admin"] == 1) {
     $_SESSION["log"] = 2;
     $_SESSION["uid"] = $row["id"];
     $_SESSION["name"] = $row["user_name"];
@@ -19,13 +18,14 @@ if (isset($_POST['LIbtn'])) {
   } elseif ($count == 1) {
     $_SESSION["log"] = 1;
     $_SESSION["uid"] = $row["id"];
-    $_SESSION["name"] = $row["name"];
+    $_SESSION["name"] = $row["user_name"];
     $_SESSION["email"] = $row["email"];
     echo "<h1><center> Login successful </center></h1>";
     header("Location: homepage.php");
     echo "<script>window.location = 'homepage.php'; </script>";
   } else {
-    echo '<div class="alert alert-error shadow-lg absolute top-3">
+    header("Refresh:2");
+    echo '<div class="alert alert-error shadow-lg fixed top-1">
       <div>
       <link rel="stylesheet" href="css/main.css">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-red flex-shrink-0 h-6 w-6 top-1 fixed" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -58,7 +58,7 @@ if (isset($_POST['LIbtn'])) {
           <svg class="absolute -ml-8" width="24" viewBox="0 0 24 24">
             <path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
           </svg>
-          <input type="text" name="fname" id="username" class="input bg-gray-200 input-bordered w-full" placeholder="  Username" />
+          <input type="text" name="uname" id="username" class="input bg-gray-200 input-bordered w-full" placeholder="  Username" />
         </div>
         <div class="flex items-center text-lg mb-6 md:mb-8">
           <svg class="absolute -ml-8" viewBox="0 0 24 24" width="24">

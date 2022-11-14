@@ -73,7 +73,7 @@ $oid=$_GET['oid'];
         </div>
     </div>
     <div id="container" class="main flex flex-row pt-1 pr-5 pl-5 mt-1 max-h-full">
-    <div class=" bg-porcelain-500 rounded-2xl w-1/4 m-4 p-5 h-full top-24 h-full sticky">
+    <div class=" bg-porcelain-500 rounded-2xl w-1/4 m-4 p-5 top-24 h-full sticky">
         <?php
         $sql="SELECT * FROM orders where order_id=$oid";
         $result=mysqli_query($conn,$sql);

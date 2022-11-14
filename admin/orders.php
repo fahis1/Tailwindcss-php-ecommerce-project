@@ -6,26 +6,6 @@ $total=0;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-    ul li ul.dropdown1{
-        min-width: 100%; /* Set width of the dropdown */
-        background: #f2f2f2;
-        display: none;
-        position: absolute;
-        z-index: 999;
-        left: 0   ;
-    }
-    ul li:hover ul.dropdown1{
-        display: block;	/* Display the dropdown */
-    }
-    ul li ul.dropdown1 li{
-        display: block;
-    }
-      *{
-        font-family: 'Inter', sans-serif;
-      }
-
-      </style>
       <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 

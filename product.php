@@ -117,7 +117,7 @@ echo "<div class=''>
 <form method='post'>
   <button type='submit' value='",$row['id'],"' class='btn btn-secondary pb-3  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
   </form>
-   <a href='order.php?id=$pid'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>CHECKOUT</button></a>
+   <a href='payment.php?id=$pid'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>CHECKOUT</button></a>
   </div>";
 
   ?>

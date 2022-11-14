@@ -2,6 +2,11 @@
 include("include/connect.php");
 include("include/cart.php");
 include("include/session.php");
+$count=count($_SESSION['$cart']);
+if($count==0 && !isset($_GET['id']))
+{
+ echo '<script>window.location = "shop.php"; </script>';
+}
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -92,6 +97,31 @@ include("include/session.php");
       <span class=" text-xl font-medium ">Order Summary</span><br><br>
       <p>product:</p><br>
       <?php
+      if(isset($_GET['id']))
+      {
+        
+        $pid=$_GET['id'];
+        $total=0;
+        $n=0;
+
+      $n=1;
+      $value=1;
+      $sql="SELECT * FROM products WHERE id='$pid'";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_assoc($result);
+      $name=$row["pname"];
+      echo '<h2 class=" text-base text-dblue-300 truncate">',$n,'.&ensp;',strtoupper($name),'&ensp;<span class="badge badge-md ">',$value,'</span></h2>&ensp;';  
+      $price=$row["price"];
+      $price=(int)$price;
+      $total=$price;
+      echo '<hr class="border-t-[1px]"><br>
+      <span class=" text-xl font-medium ">Order Total:
+       <span class=" font-bold">₹  '.$total.'.00</p>
+</span><br>
+      <hr class="border-t-[1px]"><br>
+      <center><a href="order.php?id='.$pid.'"><button class="btn btn-active bg-sun-500 text-white font-bold">Place your order</button></a></center>';
+      }
+      else{
     
       $total=0;
       $n=0;
@@ -108,13 +138,15 @@ $price=(int)$price;
 $total+=$price*$value;
 
 } 
+
+      echo '<hr class="border-t-[1px]"><br>
+      <span class=" text-xl font-medium ">Order Total:
+       <span class=" font-bold">₹  '.$total.'.00</p>
+      </span><br>
+      <hr class="border-t-[1px]"><br>
+      <center><a href="order.php"><button class="btn btn-active bg-sun-500 text-white font-bold">Place your order</button></a></center>';
+    }
       ?>
-      <hr class="border-t-[1px]"><br>
-      <span class=" text-xl font-medium ">Order Total:<?php
-      echo '<span class=" font-bold">₹  '.$total.'.00</p>';
-      ?></span><br>
-      <hr class="border-t-[1px]"><br>
-      <center><a href="order.php"><button class="btn btn-active bg-sun-500 text-white font-bold">Place your order</button></a></center>
 
     </div>
   </div>

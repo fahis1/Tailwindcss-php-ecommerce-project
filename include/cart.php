@@ -28,6 +28,7 @@ if (isset($_POST["clear_cart"]))
   $sql="DELETE FROM cart where user_id='$uid'";
   mysqli_query($conn,$sql);
   $cart=array();
+  $_SESSION['count']=0;
 }
 if (isset($_POST["checkout"]))
 {
