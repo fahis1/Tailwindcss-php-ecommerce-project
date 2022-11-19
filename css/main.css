@@ -1831,28 +1831,6 @@ html {
   border-radius: var(--rounded-btn, 0.5rem);
 }
 
-.toggle {
-  flex-shrink: 0;
-  --chkbg: hsla(var(--bc) / 0.2);
-  --handleoffset: 1.5rem;
-  height: 1.5rem;
-  width: 3rem;
-  cursor: pointer;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  border-width: 1px;
-  border-color: hsl(var(--bc) / var(--tw-border-opacity));
-  --tw-border-opacity: 0.2;
-  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.2;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: var(--rounded-badge, 1.9rem);
-  transition: background, box-shadow var(--animation-input, 0.2s) ease-in-out;
-  box-shadow: calc(var(--handleoffset) * -1) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
-}
-
 .alert-success {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--su) / var(--tw-bg-opacity));
@@ -3266,42 +3244,6 @@ html {
   }
 }
 
-.toggle:focus-visible {
-  outline: 2px solid hsl(var(--bc));
-  outline-offset: 2px;
-}
-
-.toggle:checked,
-  .toggle[checked="true"],
-  .toggle[aria-checked=true] {
-  --chkbg: hsl(var(--bc));
-  --tw-border-opacity: 1;
-  --tw-bg-opacity: 1;
-  box-shadow: var(--handleoffset) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
-}
-
-[dir="rtl"] .toggle:checked, [dir="rtl"] .toggle[checked="true"], [dir="rtl"] .toggle[aria-checked=true] {
-  box-shadow: calc(var(--handleoffset) * 1) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
-}
-
-.toggle:indeterminate {
-  --chkbg: hsl(var(--bc));
-  --tw-border-opacity: 1;
-  --tw-bg-opacity: 1;
-  box-shadow: calc(var(--handleoffset) / 2) 0 0 2px hsl(var(--b1)) inset, calc(var(--handleoffset) / -2) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
-}
-
-[dir="rtl"] .toggle:indeterminate {
-  box-shadow: calc(var(--handleoffset) / 2) 0 0 2px hsl(var(--b1)) inset, calc(var(--handleoffset) / -2) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
-}
-
-.toggle:disabled {
-  cursor: not-allowed;
-  border-color: transparent;
-  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.2;
-}
-
 .rounded-box {
   border-radius: var(--rounded-box, 1rem);
 }
@@ -3476,6 +3418,15 @@ html {
   bottom: auto;
   --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rating-lg input {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.rating-half.rating-lg input:not(.rating-hidden) {
+  width: 1.25rem;
 }
 
 .steps-horizontal .step {
@@ -3769,6 +3720,14 @@ html {
   margin: 1.5rem;
 }
 
+.m-8 {
+  margin: 2rem;
+}
+
+.m-7 {
+  margin: 1.75rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -3862,12 +3821,24 @@ html {
   margin-right: 0.75rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .ml-1 {
   margin-left: 0.25rem;
 }
 
-.mr-1 {
-  margin-right: 0.25rem;
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
 }
 
 .block {
@@ -3944,6 +3915,12 @@ html {
 
 .h-96 {
   height: 24rem;
+}
+
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .max-h-full {
@@ -4140,6 +4117,18 @@ html {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-items-center {
+  justify-items: center;
 }
 
 .gap-2 {
@@ -4403,6 +4392,14 @@ html {
   padding: 1.5rem;
 }
 
+.p-7 {
+  padding: 1.75rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
+}
+
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
@@ -4458,10 +4455,6 @@ html {
 
 .pl-5 {
   padding-left: 1.25rem;
-}
-
-.pr-52 {
-  padding-right: 13rem;
 }
 
 .pb-4 {
@@ -4544,12 +4537,12 @@ html {
   line-height: 2.5rem;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
 .font-bold {
   font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
 }
 
 .font-semibold {
@@ -4570,6 +4563,10 @@ html {
 
 .normal-case {
   text-transform: none;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .tracking-wide {

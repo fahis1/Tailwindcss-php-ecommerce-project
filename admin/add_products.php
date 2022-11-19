@@ -8,9 +8,9 @@ include("../include/admin_session.php");
   // If upload button is clicked ...
   if (isset($_POST['upload'])) {
       // Get image name
-      $image = $_FILES['image']['name'];
-      $image2 = $_FILES['image2']['name'];
-      $image3 = $_FILES['image3']['name'];
+      $image = $_FILES['image']['name'][0];
+      $image2 = $_FILES['image']['name'][1];
+      $image3 = $_FILES['image']['name'][2];
       // Get text
       $pn = mysqli_real_escape_string($conn,$_POST['pname']);
       $bn = mysqli_real_escape_string($conn,$_POST['bname']);
@@ -19,17 +19,23 @@ include("../include/admin_session.php");
       $pr =  mysqli_real_escape_string($conn,$_POST['price']);
       // image file directory
      
-      $target = $target_dir.basename($image);
+      $target1 = $target_dir.basename($image);
+      $target2 = $target_dir.basename($image2);
+      $target3 = $target_dir.basename($image3);
+
+
 
       $sql = "INSERT INTO `products`(`bname`,`pname`, `pdesc`, `price`, `offer`, `image`, `image2`, `image3`) VALUES ('$bn','$pn','$pd','$pr','$off','$image','$image2','$image3')";
       // execute query
       
-
-      if (move_uploaded_file($_FILES['image']['tmp_name'][1], $target)) 
+      if (mysqli_query($conn, $sql)) 
       {
-        move_uploaded_file($_FILES['image2']['tmp_name'][2], $target);
-        move_uploaded_file($_FILES['image3']['tmp_name'][3], $target);
-        mysqli_query($conn, $sql);
+        move_uploaded_file($_FILES['image']['tmp_name'][0], $target1);
+        move_uploaded_file($_FILES['image']['tmp_name'][1], $target2);
+        move_uploaded_file($_FILES['image']['tmp_name'][2], $target3);
+        
+
+
         $status=1;
          
       } else {
@@ -81,7 +87,7 @@ include("../include/admin_session.php");
   <label for="my-drawer" class="btn btn-ghost drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl" href="../homepage.php"><img src="../images/LoGo2.png" width="150" height="150" alt="logo"></a>
+    <a class="btn btn-ghost normal-case text-xl"><img src="../images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
   <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -131,11 +137,11 @@ include("../include/admin_session.php");
             <h3 class=" font-semibold">Offer percentage</h3> 
             <input class="input input-bordered w-96 m-2" type="text" name="off" placeholder="discount percentage">
 <br>
-            <input class="hidden" id="file-upload" type="file" name="image" value="shoe image">
+            <input class="hidden" id="file-upload" type="file" name="image[]">
             <label for="file-upload" class="btn btn-primary m-2" >Upload thumbnail</label> 
-            <input class="hidden" id="file-upload2" type="file" name="image2" value="shoe image">
+            <input class="hidden" id="file-upload2" type="file" name="image[]">
             <label for="file-upload2" class="btn btn-primary m-2" >Upload image 1</label> <br>
-            <input class="hidden" id="file-upload3" type="file" name="image3" value="shoe image">
+            <input class="hidden" id="file-upload3" type="file" name="image[]">
             <label for="file-upload3" class="btn btn-primary m-2" >Upload image 2</label> 
             <input type="submit" name="upload" class="btn btn-accent" value="submit">
    
@@ -160,3 +166,17 @@ include("../include/admin_session.php");
 
 </body>
 </html>
+
+array(1) {
+   ["image"]=> array(6) 
+   {
+     ["name"]=> array(3)  { [0]=> string(8) "img1.jpg" [1]=> string(8) "img2.jpg" [2]=> string(8) "img3.jpg" 
+      } 
+      ["full_path"]=> array(3)  { [0]=> string(8) "img1.jpg" [1]=> string(8) "img2.jpg" [2]=> string(8) "img3.jpg" 
+        } 
+        ["type"]=> array(3) { [0]=> string(10) "image/jpeg" [1]=> string(10) "image/jpeg" [2]=> string(10) "image/jpeg" 
+        }
+         ["tmp_name"]=> array(3) { [0]=> string(24) "C:\xamp2\tmp\phpE2B7.tmp" [1]=> string(24) "C:\xamp2\tmp\phpE2B8.tmp" [2]=> string(24) "C:\xamp2\tmp\phpE2B9.tmp" 
+        } 
+         ["error"]=> array(3) { [0]=> int(0) [1]=> int(0) [2]=> int(0) 
+        } ["size"]=> array(3) { [0]=> int(60663) [1]=> int(79958) [2]=> int(49148) } } } 

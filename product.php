@@ -5,6 +5,25 @@ $pid=$_GET['id'];
 $sql="SELECT * FROM products WHERE id='$pid'";
 $result=mysqli_query($conn,$sql);
 $row=mysqli_fetch_assoc($result);
+if(isset($_POST['ATC']))//cart system
+{
+  $cid=$_POST["ATC"];
+  $sql="SELECT * FROM cart WHERE user_id=$uid and product_id=$cid";
+  $result = mysqli_query($conn, $sql);
+  $count = mysqli_num_rows($result);
+  if($count==0)
+  {
+  $sql="INSERT INTO `cart`(`user_id`, `product_id`) VALUES ('$uid','$cid')";
+  mysqli_query($conn,$sql);
+  $_SESSION['count']++;
+  }
+  else
+  {
+    $sql="UPDATE cart set nos=nos+1 WHERE user_id=$uid AND product_id=$cid";
+  mysqli_query($conn,$sql);
+  $_SESSION['count']++;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html class="bg-sun-300">
@@ -22,7 +41,7 @@ $row=mysqli_fetch_assoc($result);
     <a href="shop.php" class="btn btn-ghost normal-case text-xl"><img src="./images/LoGo2.png" width="150" height="150" alt="logo"></a>
   </div>
 
-    <div class="form-control">
+    <div class="form-control flex justify-center items-center">
       <form action="" method="post">
       <div class="input-group">
     <input type="text" placeholder="Search…" name="search" class="input input-bordered" />
@@ -92,33 +111,43 @@ $sql="SELECT * FROM products WHERE id='$pid '";
     </div>
   </div>
 </div>
-<div class="main flex flex-row pt-1  pr-5 pl-5 ">
+<div class="main flex flex-row pt-1 pr-5 pl-5 ">
 
-        <div class="pd bg-porcelain-500 rounded-2xl w-3/4 m-4 p-5">
-        <img src='products/<?php echo $row["image"]?>'class='ml-auto mr-auto' height='500px' width='500px'>   
-        <!-- <img src='products/<?php echo $row["image2"]?>'class='border-double rounded-3xl border-4 border-dblue-500' height='300px' width='300px'>   
-        <img src='products/<?php echo $row["image3"]?>'class='border-double rounded-3xl border-4 border-dblue-500' height='300px' width='300px'>    -->
-        <h1 class="text-sm font-sans"><?php echo $row["pdesc"]?></h1>
+        <div class="pd bg-porcelain-500 rounded-2xl w-3/4 m-4 ">
+        <img src='products/<?php echo $row["image"]?>'class='ml-auto mr-auto' height='500px' width='500px'>  
+        <div class="flex flex-row justify-center items-center"> 
+        <img src='products/<?php echo $row["image2"]?>'class=' m-8 rounded-3xl ' height='400px' width='400px'>   
+        <img src='products/<?php echo $row["image3"]?>'class=' m-8 rounded-3xl ' height='400px' width='400px'>
         </div>
-        <div class="pd page bg-porcelain-500 rounded-2xl w-1/4 p-5 m-4 ">
+        <div class=" m-7 p-6">
+         <h1 class=" underline font-bold text-xl">Description</h1><br>
+        <h1 class=" text-2xl font-mono italic"><?php echo $row["pdesc"]?></h1>
+        </div>
+        </div>
+        <div class="pd page bg-porcelain-500 rounded-2xl w-1/4 p-5 m-4 top-24 h-full sticky ">
         <div>
-        <h1 class="text-xl font-sans uppercase"><?php echo $row["bname"]?></h1>
-        <h1 class="text-4xl font-mono uppercase"><?php echo $row["pname"]?></h1>
-        <h1 class="text-2xl font-mono">MRP: <?php echo '₹',$row["price"]?></h1>
-<div class="rating">
+          <br>
+        <h1 class="text-xl font-sans uppercase"><?php echo $row["bname"]?></h1><br>
+        <h1 class="text-4xl font-mono uppercase"><?php echo $row["pname"]?></h1><br>
+        <h1 class="text-2xl font-mono">MRP: <?php echo '₹',$row["price"]?></h1><br>
+<div class="rating rating-lg">
+  <form method="post">
   <input type="radio" name="rating-2" class="mask mask-star-2 bg-sun-400" />
   <input type="radio" name="rating-2" class="mask mask-star-2 bg-sun-400" checked />
   <input type="radio" name="rating-2" class="mask mask-star-2 bg-sun-400" />
   <input type="radio" name="rating-2" class="mask mask-star-2 bg-sun-400" />
   <input type="radio" name="rating-2" class="mask mask-star-2 bg-sun-400" />
-</div>
-<?php 
-echo "<div class=''>
-<form method='post'>
-  <button type='submit' value='",$row['id'],"' class='btn btn-secondary pb-3  transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
+  <input type="submit" hidden id="rate" >
   </form>
-   <a href='payment.php?id=$pid'><button class='btn btn-primary  transition ease-in-out delay-150 hover:scale-105'>CHECKOUT</button></a>
-  </div>";
+</div><br>
+<?php 
+echo "<div class='flex m-4 justify-center items-center'>
+<form method='post'>
+  <button type='submit' value='",$row['id'],"' class='btn btn-secondary  mr-1 transition ease-in-out delay-150 hover:scale-105' name='ATC' >Add to Cart</button>
+  </form>
+  <a href='payment.php?id=$pid'><label for='rate' class='btn btn-primary  ml-1 transition ease-in-out delay-150 hover:scale-105'>CHECKOUT</input></a>
+   
+   </div>";
 
   ?>
 </div>

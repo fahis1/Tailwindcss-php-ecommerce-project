@@ -13,8 +13,8 @@ if (isset($_POST['LIbtn'])) {
     $_SESSION["name"] = $row["user_name"];
     $_SESSION["email"] = $row["email"];
     echo "<h1><center> Login successful </center></h1>";
-    header("Location: homepage.php");
-    echo "<script>window.location = 'homepage.php'; </script>";
+    header("Location:./admin/dashboard.php");
+    echo "<script>window.location = './admin/dashboard.php'; </script>";
   } elseif ($count == 1) {
     $_SESSION["log"] = 1;
     $_SESSION["uid"] = $row["id"];

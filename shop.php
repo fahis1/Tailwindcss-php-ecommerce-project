@@ -126,7 +126,9 @@ foreach($result as $row){//display product cards
 
 echo "<div class='card w-96 transition ease-in-out delay-150 hover:scale-105 bg-porcelain-500 m-5 shadow-xl '>
 <figure>
+<a href='product.php?id=",$row['id'],"'>
 <img src='products/$img' class='transition ease-in-out delay-150 duration-500 hover:rotate-12 z-0 hover:scale-125' height='200px' width='200px'>
+</a>
 </figure>
 <div class='card-body'>
   <h2 class='card-title z-20'> ",$row['pname'],"</h2>
